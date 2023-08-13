@@ -43,22 +43,25 @@ class _MainFoodPageState extends State<MainFoodPage> {
                       )
                     ],
                   ),
-                  Container(
-                    height: Dimension.icon24,
-                    width: Dimension.icon24,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(Dimension.radius15),
-                        color: AppColors.mainColor),
-                    child: const Icon(
-                      Icons.search,
-                      color: Colors.white,
+                  Center(
+                    child: Container(
+                      height: Dimension.height40,
+                      width: Dimension.height40,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(Dimension.radius15),
+                          color: AppColors.mainColor),
+                      child: Icon(
+                        Icons.search,
+                        size: Dimension.icon24,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          FoodPageBody(),
+          Expanded(child: FoodPageBody()),
         ],
       ),
     );

@@ -12,7 +12,7 @@ class Dimension{
   static double height15 = deviceHeight/68;
   static double height20 = deviceHeight/39;
   static double height30 = deviceHeight/19;
-  static double height40 = deviceHeight/10;
+  static double height40 = deviceHeight/20;
 
   static double width10 = deviceWidth/40;
   static double width15 = deviceWidth/30;
@@ -26,7 +26,10 @@ class Dimension{
   static double radius20 = deviceHeight/39;
   static double radius30 = deviceHeight/19;
 
-  static double icon24 = deviceHeight/18;
+  static double icon24 = deviceHeight/33;
+
+  static double imageHeight = deviceHeight/6.5;
+  static double listViewTextHeight = deviceHeight/7.8;
 
 
 }

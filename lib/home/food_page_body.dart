@@ -37,32 +37,140 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: Dimension.pageView,
-          child: PageView.builder(
-              controller: pageController,
-              itemCount: 5,
-              itemBuilder: (context, position) => _buildPageItem(position)),
-        ),
-        DotsIndicator(
-          dotsCount: 5,
-          position: _currentPageValue.toInt(),
-          decorator: DotsDecorator(
-            size: const Size.square(9.0),
-            activeSize: const Size(18.0, 9.0),
-            activeColor: AppColors.mainColor,
-            activeShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            height: Dimension.pageView,
+            child: PageView.builder(
+                controller: pageController,
+                itemCount: 5,
+                itemBuilder: (context, position) => _buildPageItem(position)),
           ),
-        )
-      ],
+          DotsIndicator(
+            dotsCount: 5,
+            position: _currentPageValue.toInt(),
+            decorator: DotsDecorator(
+              size: const Size.square(9.0),
+              activeSize: const Size(18.0, 9.0),
+              activeColor: AppColors.mainColor,
+              activeShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0)),
+            ),
+          ),
+          SizedBox(
+            height: Dimension.height30,
+          ),
+          Container(
+            margin: EdgeInsets.only(left: Dimension.width30),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                BigText(text: 'Popular'),
+                SizedBox(
+                  width: Dimension.width10,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 3),
+                  child: BigText(
+                    text: '.',
+                    color: Colors.black26,
+                  ),
+                ),
+                SizedBox(
+                  width: Dimension.width10,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 2),
+                  child: SmallText(
+                    text: 'Food pairing',
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(height:Dimension.height20),
+          popularFoodList()
+        ],
+      ),
     );
   }
 
+  ListView popularFoodList() {
+    return ListView.builder(
+      padding: EdgeInsets.zero,
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: EdgeInsets.only(
+                bottom: Dimension.height10,
+                left: Dimension.width20,
+                right: Dimension.width20),
+            child: Row(
+              children: [
+                Container(
+                  height: Dimension.imageHeight,
+                  width: Dimension.imageHeight,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Dimension.radius20),
+                      image: DecorationImage(
+                          image: AssetImage('assets/image/food0.png'),
+                          fit: BoxFit.cover)),
+                ),
+                Expanded(
+                  child: Container(
+                    height: Dimension.listViewTextHeight,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(Dimension.radius20),
+                            bottomRight: Radius.circular(Dimension.radius20))),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: Dimension.width10,vertical: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          BigText(text: 'Nutritious Food Meal in China'),
+                          SizedBox(
+                            height: Dimension.height10,
+                          ),
+                          SmallText(text: 'Chinese Recipe'),
+                          SizedBox(
+                            height: Dimension.height10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              IconAndText(
+                                  text: 'Normal',
+                                  icon: Icons.circle_sharp,
+                                  iconColor: AppColors.iconColor1),
+                              IconAndText(
+                                  text: '1.7 km',
+                                  icon: Icons.location_on,
+                                  iconColor: AppColors.mainColor),
+                              IconAndText(
+                                  text: '32 min',
+                                  icon: Icons.access_time,
+                                  iconColor: AppColors.iconColor2),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        });
+  }
+
   Widget _buildPageItem(int index) {
-    print('Height'+MediaQuery.of(context).size.width.toString());
+    print('Height' + MediaQuery.of(context).size.height.toString());
     Matrix4 matrix = Matrix4.identity();
     if (index == _currentPageValue.floor()) {
       var currentScale = 1 - (_currentPageValue - index) * (1 - _scaleFactor);
@@ -106,11 +214,14 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             alignment: Alignment.bottomCenter,
             child: Container(
               height: Dimension.pageTextView,
-              margin:  EdgeInsets.only(left: Dimension.width30, right: Dimension.width30, bottom: Dimension.width15),
+              margin: EdgeInsets.only(
+                  left: Dimension.width30,
+                  right: Dimension.width30,
+                  bottom: Dimension.width15),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                         color: Color(0xffe8e8e8),
                         blurRadius: 5.0,
@@ -124,7 +235,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     BigText(text: 'Bitter Orange Marinade'),
-                     SizedBox(
+                    SizedBox(
                       height: Dimension.height15,
                     ),
                     Row(
@@ -139,17 +250,17 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                             ),
                           ),
                         ),
-                         SizedBox(
+                        SizedBox(
                           width: Dimension.width10,
                         ),
                         SmallText(text: '4.5'),
-                         SizedBox(
+                        SizedBox(
                           width: Dimension.width10,
                         ),
                         SmallText(text: '1214 Comments'),
                       ],
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: Dimension.height20,
                     ),
                     Row(
