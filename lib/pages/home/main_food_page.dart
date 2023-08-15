@@ -37,8 +37,8 @@ class _MainFoodPageState extends State<MainFoodPage> {
                             text: 'Narsingdi',
                             color: Colors.black54,
                           ),
-                          SizedBox(width: 5,),
-                          Icon(Icons.arrow_drop_down)
+                          const SizedBox(width: 5,),
+                          const Icon(Icons.arrow_drop_down)
                         ],
                       )
                     ],
@@ -61,7 +61,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
               ),
             ),
           ),
-          Expanded(child: FoodPageBody()),
+          const Expanded(child: FoodPageBody()),
         ],
       ),
     );
