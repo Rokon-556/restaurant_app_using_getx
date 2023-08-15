@@ -3,6 +3,7 @@ import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimension.dart';
 import 'package:food_delivery/widgets/app_icon.dart';
 import 'package:food_delivery/widgets/big_text.dart';
+import 'package:food_delivery/widgets/bottom_section.dart';
 import 'package:food_delivery/widgets/expandable_text_widget.dart';
 import 'package:food_delivery/widgets/food_name_column.dart';
 
@@ -79,60 +80,27 @@ class PopularFoodDetail extends StatelessWidget {
           )
         ],
       ),
-      bottomNavigationBar: Container(
-        height: Dimension.bottomHeight,
-        padding: EdgeInsets.symmetric(
-            horizontal: Dimension.width20, vertical: Dimension.height20),
-        decoration: BoxDecoration(
-            color: AppColors.buttonBackgroundColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(Dimension.radius20),
-              topRight: Radius.circular(Dimension.radius20),
-            )),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      bottomNavigationBar: BottomSection(
+        widget: Row(
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(
-                  vertical: Dimension.height20, horizontal: Dimension.width20),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimension.radius20),
-                  color: Colors.white),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.remove,
-                    color: AppColors.signColor,
-                  ),
-                  SizedBox(
-                    width: Dimension.width10 / 2,
-                  ),
-                  BigText(
-                    text: '0',
-                    textSize: 18,
-                  ),
-                  SizedBox(
-                    width: Dimension.width10 / 2,
-                  ),
-                  Icon(
-                    Icons.add,
-                    color: AppColors.signColor,
-                  ),
-                ],
-              ),
+            Icon(
+              Icons.remove,
+              color: AppColors.signColor,
             ),
-            Container(
-              padding: EdgeInsets.symmetric(
-                  vertical: Dimension.height20, horizontal: Dimension.width20),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimension.radius20),
-                  color: AppColors.mainColor),
-              child: BigText(
-                text: '\$10 | Add To Cart',
-                color: Colors.white,
-                textSize: 18,
-              ),
-            )
+            SizedBox(
+              width: Dimension.width10 / 2,
+            ),
+            BigText(
+              text: '0',
+              textSize: 18,
+            ),
+            SizedBox(
+              width: Dimension.width10 / 2,
+            ),
+            Icon(
+              Icons.add,
+              color: AppColors.signColor,
+            ),
           ],
         ),
       ),

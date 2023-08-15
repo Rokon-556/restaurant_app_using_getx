@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/utils/dimension.dart';
 
 class AppIcon extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
   final double size;
   final Color bgColor;
+  final double iconSize;
   const AppIcon(
       {super.key,
       required this.icon,
       this.iconColor = const Color(0xff756d54),
       this.size = 40,
+        this.iconSize = 16,
       this.bgColor = const Color(0xfffcf4e4)});
 
   @override
@@ -22,7 +23,7 @@ class AppIcon extends StatelessWidget {
         borderRadius: BorderRadius.circular(size/2),
         color: bgColor
       ),
-      child: Icon(icon,color: iconColor,size: Dimension.icon16,),
+      child: Icon(icon,color: iconColor,size: iconSize,),
     );
   }
 }
