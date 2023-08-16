@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/data/controller/popular_product_list_controller.dart';
 import 'package:food_delivery/data/controller/recommended_product_list_controller.dart';
+import 'package:food_delivery/routes/app_routes.dart';
 import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimension.dart';
@@ -120,8 +121,11 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return popularFoodItem(
-                          recommendedProduct.recommendedProductList[index]);
+                      return InkWell(
+                        onTap: ()=>Get.toNamed(AppRoutes.getRecommendedFood(index)),
+                        child: popularFoodItem(
+                            recommendedProduct.recommendedProductList[index]),
+                      );
                     })
                 : CircularProgressIndicator(
                     color: AppColors.mainColor,
@@ -231,17 +235,20 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       transform: matrix,
       child: Stack(
         children: [
-          Container(
-            height: Dimension.pageContainerView,
-            margin: const EdgeInsets.only(left: 5, right: 5),
-            decoration: BoxDecoration(
-              color: index.isEven ? Colors.redAccent : Colors.amberAccent,
-              borderRadius: BorderRadius.circular(Dimension.radius30),
-              image: DecorationImage(
-                  image: NetworkImage(AppConstants.BASE_URL +
-                      AppConstants.UPLOAD +
-                      productListModel.img!),
-                  fit: BoxFit.cover),
+          InkWell(
+            onTap: ()=> Get.toNamed(AppRoutes.getPopularFood(index)),
+            child: Container(
+              height: Dimension.pageContainerView,
+              margin: const EdgeInsets.only(left: 5, right: 5),
+              decoration: BoxDecoration(
+                color: index.isEven ? Colors.redAccent : Colors.amberAccent,
+                borderRadius: BorderRadius.circular(Dimension.radius30),
+                image: DecorationImage(
+                    image: NetworkImage(AppConstants.BASE_URL +
+                        AppConstants.UPLOAD +
+                        productListModel.img!),
+                    fit: BoxFit.cover),
+              ),
             ),
           ),
           Align(

@@ -1,37 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/data/controller/recommended_product_list_controller.dart';
+import 'package:food_delivery/routes/app_routes.dart';
+import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimension.dart';
 import 'package:food_delivery/widgets/app_icon.dart';
 import 'package:food_delivery/widgets/big_text.dart';
 import 'package:food_delivery/widgets/bottom_section.dart';
 import 'package:food_delivery/widgets/expandable_text_widget.dart';
+import 'package:get/get.dart';
 
 class RecommendedFoodDetails extends StatelessWidget {
-  const RecommendedFoodDetails({super.key});
+  final int pageId;
+  const RecommendedFoodDetails({super.key,required this.pageId});
 
   @override
   Widget build(BuildContext context) {
+    var product = Get.find<RecommenededProductListController>().recommendedProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: 70,
             backgroundColor: AppColors.yellowColor,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcon(icon: Icons.clear),
-                AppIcon(icon: Icons.shopping_cart)
+                InkWell(
+                  onTap: ()=>Get.toNamed(AppRoutes.getInitial()),
+                  child: const AppIcon(icon: Icons.clear),
+                ),
+                const AppIcon(icon: Icons.shopping_cart)
               ],
             ),
             expandedHeight: 300,
             pinned: true,
             bottom: PreferredSize(
-              preferredSize: Size.fromHeight(20),
+              preferredSize: const Size.fromHeight(20),
               child: Container(
                 width: double.maxFinite,
-                padding: EdgeInsets.only(top: 5, bottom: 10),
+                padding: const EdgeInsets.only(top: 5, bottom: 10),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -40,15 +50,15 @@ class RecommendedFoodDetails extends StatelessWidget {
                     )),
                 child: Center(
                   child: BigText(
-                    text: "Chinese Cuisine",
+                    text: product.name ?? '',
                     textSize: Dimension.font20 + 6,
                   ),
                 ),
               ),
             ),
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                'assets/image/food0.png',
+              background: Image.network(
+                AppConstants.BASE_URL+AppConstants.UPLOAD+product.img,
                 width: double.maxFinite,
                 fit: BoxFit.cover,
               ),
@@ -59,9 +69,9 @@ class RecommendedFoodDetails extends StatelessWidget {
               children: [
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: Dimension.width20),
-                  child: ExpandableTextWidget(
+                  child:  ExpandableTextWidget(
                     text:
-                        'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book hhf ejhsihdas idguiqweyqwude uidgqwu8dtqw9 uiwdgyuqwdgaswidb aqidgqwuiegqwu8 asdhyas ajsikdgqwuidg jskdgaikdhqwui iAKDHIKAQDGH JKWDHQWUIDYQW UIQWDHASIDHA AISDHAUOwdh hiaswduqwodb ajhdgqwyud  UIWDTQWUIE ASDIHASDK;DP WUIDYTQWUIEDTGQ UIDGQWUIDTQW8OEB ASDHASWoidagswdaqowduiqwodqbk sdjkdha ow;fj;weof lorjwerjipwe qefojhqweoip  efhiwe;p isdfow;pehoi;p oiwerfqweprh weoifdhqweoir oaedfjhpqweo0 ekwqhdqweiporu qweoirhqwerih weofhiwepr weoifphwepo woerhiqweprh oqwehipqw o qwdhoqwprih o qiqw[ qwodhqwdoih hqwrihqwed oq wehqhl;   qowhrq  oehpqwp q owdhepqwhc q  woic hhqwdhoi qdeb qiwehqweohq   ASKAs qoiwihdsqwe[h  o[ehdpqwehdg; efb q hqwhoipq  weophq  wphpqwhpqwebbqwdhqwphi  ophqwbqwoiphpqwo qweoiheopq  xhiqwehqwphb qwhiee  qb  qq  whoiqwephpqweowoerikhqweoipru kwieorhipweorq weoirfhweiroyhqw34 weiupgweryt4efbwef iqwefrweoirye iqwewoiergwie dawsidugqw8dt awdtqwu8idtqw aWSDUIGQW8DEO QWIDEGTQWDE DGQWUDETQWETQWD QWIDTQW8DTQWO8',
+                        product.description ?? '',
                   ),
                 )
               ],
@@ -86,7 +96,7 @@ class RecommendedFoodDetails extends StatelessWidget {
                   iconSize: Dimension.icon24,
                   iconColor: Colors.white,
                 ),
-                BigText(text: '\$12.88 '+' X '+ ' 0 ',textSize: Dimension.font20+6,color: AppColors.mainBlackColor,),
+                BigText(text: '\$${product.price.toString()} X 0 ',textSize: Dimension.font20+6,color: AppColors.mainBlackColor,),
                 AppIcon(
                   icon: Icons.add,
                   bgColor: AppColors.mainColor,
@@ -96,7 +106,7 @@ class RecommendedFoodDetails extends StatelessWidget {
               ],
             ),
           ),
-          BottomSection(widget: Icon(Icons.favorite,color: AppColors.mainColor,),)
+          BottomSection(widget: Icon(Icons.favorite,color: AppColors.mainColor,),price: product.price.toString(),)
         ],
       ),
     );

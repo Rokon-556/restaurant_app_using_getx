@@ -1,4 +1,9 @@
+
+
 import 'package:flutter/material.dart';
+import 'package:food_delivery/data/controller/popular_product_list_controller.dart';
+import 'package:food_delivery/routes/app_routes.dart';
+import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimension.dart';
 import 'package:food_delivery/widgets/app_icon.dart';
@@ -6,12 +11,15 @@ import 'package:food_delivery/widgets/big_text.dart';
 import 'package:food_delivery/widgets/bottom_section.dart';
 import 'package:food_delivery/widgets/expandable_text_widget.dart';
 import 'package:food_delivery/widgets/food_name_column.dart';
+import 'package:get/get.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({super.key});
+  final int pageId;
+  const PopularFoodDetail({super.key, required this.pageId});
 
   @override
   Widget build(BuildContext context) {
+    var product = Get.find<PopularProductListController>().productList[pageId];
     return Scaffold(
       body: Stack(
         children: [
@@ -23,7 +31,9 @@ class PopularFoodDetail extends StatelessWidget {
                 height: Dimension.foodDetailImageSize,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('assets/image/food0.png'),
+                        image: NetworkImage(AppConstants.BASE_URL +
+                            AppConstants.UPLOAD +
+                            product.img),
                         fit: BoxFit.cover)),
               )),
           Positioned(
@@ -33,7 +43,10 @@ class PopularFoodDetail extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppIcon(icon: Icons.arrow_back_ios),
+                  InkWell(
+                    onTap: () => Get.toNamed(AppRoutes.INITIAL),
+                    child: AppIcon(icon: Icons.arrow_back_ios),
+                  ),
                   AppIcon(icon: Icons.shopping_cart)
                 ],
               )),
@@ -57,7 +70,7 @@ class PopularFoodDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   FoodNameColumn(
-                    text: 'Bitter Orange Marinade',
+                    text: product?.name ?? '',
                   ),
                   SizedBox(
                     height: Dimension.height20,
@@ -70,10 +83,10 @@ class PopularFoodDetail extends StatelessWidget {
                     height: Dimension.height10,
                   ),
                   Expanded(
-                      child: SingleChildScrollView(
-                          child: ExpandableTextWidget(
-                              text:
-                                  'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book hhf ejhsihdas idguiqweyqwude uidgqwu8dtqw9 uiwdgyuqwdgaswidb aqidgqwuiegqwu8 asdhyas ajsikdgqwuidg jskdgaikdhqwui iAKDHIKAQDGH JKWDHQWUIDYQW UIQWDHASIDHA AISDHAUOwdh hiaswduqwodb ajhdgqwyud  UIWDTQWUIE ASDIHASDK;DP WUIDYTQWUIEDTGQ UIDGQWUIDTQW8OEB ASDHASWoidagswdaqowduiqwodqbk dawsidugqw8dt awdtqwu8idtqw aWSDUIGQW8DEO QWIDEGTQWDE DGQWUDETQWETQWD QWIDTQW8DTQWO8')))
+                    child: SingleChildScrollView(
+                      child: ExpandableTextWidget(text: product?.description ?? ''),
+                    ),
+                  )
                 ],
               ),
             ),
@@ -103,6 +116,7 @@ class PopularFoodDetail extends StatelessWidget {
             ),
           ],
         ),
+        price: product.price.toString(),
       ),
     );
   }

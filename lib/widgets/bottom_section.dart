@@ -6,7 +6,8 @@ import '../utils/dimension.dart';
 
 class BottomSection extends StatelessWidget {
   final Widget widget;
-  const BottomSection({super.key,required this.widget});
+  final String price;
+  const BottomSection({super.key,required this.widget, required this.price});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class BottomSection extends StatelessWidget {
                 borderRadius: BorderRadius.circular(Dimension.radius20),
                 color: AppColors.mainColor),
             child: BigText(
-              text: '\$10 | Add To Cart',
+              text: '\$$price | Add To Cart',
               color: Colors.white,
               textSize: 18,
             ),
