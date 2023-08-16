@@ -7,7 +7,8 @@ import '../utils/dimension.dart';
 class BottomSection extends StatelessWidget {
   final Widget widget;
   final String price;
-  const BottomSection({super.key,required this.widget, required this.price});
+  final VoidCallback? onTap;
+  const BottomSection({super.key,required this.widget, required this.price,this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +33,19 @@ class BottomSection extends StatelessWidget {
                 color: Colors.white),
             child: widget,
           ),
-          Container(
-            padding: EdgeInsets.symmetric(
-                vertical: Dimension.height20, horizontal: Dimension.width20),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimension.radius20),
-                color: AppColors.mainColor),
-            child: BigText(
-              text: '\$$price | Add To Cart',
-              color: Colors.white,
-              textSize: 18,
+          InkWell(
+            onTap: onTap,
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                  vertical: Dimension.height20, horizontal: Dimension.width20),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimension.radius20),
+                  color: AppColors.mainColor),
+              child: BigText(
+                text: '\$$price | Add To Cart',
+                color: Colors.white,
+                textSize: 18,
+              ),
             ),
           )
         ],

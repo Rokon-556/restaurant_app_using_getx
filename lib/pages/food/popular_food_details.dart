@@ -1,7 +1,9 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:food_delivery/data/controller/cart_controller.dart';
 import 'package:food_delivery/data/controller/popular_product_list_controller.dart';
+import 'package:food_delivery/models/product_model.dart';
 import 'package:food_delivery/routes/app_routes.dart';
 import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
@@ -20,6 +22,7 @@ class PopularFoodDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var product = Get.find<PopularProductListController>().productList[pageId];
+    Get.find<PopularProductListController>().initProduct(product,Get.find<CartController>());
     return Scaffold(
       body: Stack(
         children: [
@@ -93,31 +96,40 @@ class PopularFoodDetail extends StatelessWidget {
           )
         ],
       ),
-      bottomNavigationBar: BottomSection(
-        widget: Row(
-          children: [
-            Icon(
-              Icons.remove,
-              color: AppColors.signColor,
-            ),
-            SizedBox(
-              width: Dimension.width10 / 2,
-            ),
-            BigText(
-              text: '0',
-              textSize: 18,
-            ),
-            SizedBox(
-              width: Dimension.width10 / 2,
-            ),
-            Icon(
-              Icons.add,
-              color: AppColors.signColor,
-            ),
-          ],
-        ),
-        price: product.price.toString(),
-      ),
+      bottomNavigationBar: GetBuilder<PopularProductListController>(builder: (popularProduct){
+        return BottomSection(
+          widget: Row(
+            children: [
+              InkWell(
+                onTap: ()=>popularProduct.setQuantity(false),
+                child: Icon(
+                  Icons.remove,
+                  color: AppColors.signColor,
+                ),
+              ),
+              SizedBox(
+                width: Dimension.width10 / 2,
+              ),
+              BigText(
+                text: popularProduct.inCartItem.toString(),
+                textSize: 18,
+              ),
+              SizedBox(
+                width: Dimension.width10 / 2,
+              ),
+              InkWell(
+                onTap: ()=>popularProduct.setQuantity(true),
+                child: Icon(
+                  Icons.add,
+                  color: AppColors.signColor,
+                ),
+              ),
+            ],
+          ),
+          price: product.price.toString(),
+          onTap:()=> popularProduct.addItem(product),
+        );
+      },)
     );
   }
 }
