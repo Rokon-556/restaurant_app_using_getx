@@ -7,6 +7,8 @@ import 'package:food_delivery/models/product_model.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:get/get.dart';
 
+import '../../models/cart_model.dart';
+
 class PopularProductListController extends GetxController {
   final PopularProductRepo productRepo;
   List<dynamic> _productList = [];
@@ -43,6 +45,10 @@ class PopularProductListController extends GetxController {
     if (_inCartItem + quantity < 0) {
       Get.snackbar('Item Count', 'You cannot reduce more !',
           backgroundColor: AppColors.mainColor, colorText: Colors.white);
+      if(_inCartItem>0){
+        _quantity = -_inCartItem;
+        return _quantity;
+      }
       return 0;
     } else if (_inCartItem + quantity > 20) {
       Get.snackbar('Item Count', 'You cannot add more !',
@@ -79,5 +85,9 @@ class PopularProductListController extends GetxController {
 
   int get totalItems {
     return _cartController.totaItems;
+  }
+
+  List<CartModel> get cartItem{
+    return _cartController.getCartItems;
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/data/controller/cart_controller.dart';
 import 'package:food_delivery/data/controller/popular_product_list_controller.dart';
 import 'package:food_delivery/models/product_model.dart';
+import 'package:food_delivery/pages/cart/cart_page.dart';
 import 'package:food_delivery/routes/app_routes.dart';
 import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
@@ -15,7 +16,8 @@ import 'package:get/get.dart';
 
 class PopularFoodDetail extends StatelessWidget {
   final int pageId;
-  const PopularFoodDetail({super.key, required this.pageId});
+  final String page;
+  const PopularFoodDetail({super.key, required this.pageId,required this.page});
 
   @override
   Widget build(BuildContext context) {
@@ -46,38 +48,52 @@ class PopularFoodDetail extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      onTap: () => Get.toNamed(AppRoutes.INITIAL),
+                      onTap: () {
+                        if(page == 'cartpage'){
+                          Get.toNamed(AppRoutes.getCart());
+                        }else{
+                          Get.toNamed(AppRoutes.getInitial());
+                        }
+                      },
                       child: AppIcon(icon: Icons.arrow_back_ios),
                     ),
                     GetBuilder<PopularProductListController>(
                         builder: (popularController) {
-                      return Stack(
-                        children: [
-                          AppIcon(icon: Icons.shopping_cart),
-                          popularController.totalItems >= 1
-                              ? Positioned(
-                                  top: 0,
-                                  right: 0,
-                                  child: AppIcon(
-                                    icon: Icons.circle,
-                                    size: 20,
-                                    iconColor: Colors.transparent,
-                                    bgColor: AppColors.mainColor,
-                                  ),
-                                )
-                              : Container(),
-                          popularController.totalItems >= 1
-                              ? Positioned(
-                                  top: 3,
-                                  right: 3,
-                                  child: BigText(
-                                    text:
-                                        popularController.totalItems.toString(),
-                                    textSize: 12,
-                                    color: Colors.white,
-                                  ))
-                              : Container(),
-                        ],
+                      return InkWell(
+                        onTap: () {
+                          if(popularController.totalItems >= 1)
+                            Get.toNamed(
+                              AppRoutes.getCart(),
+                            );
+                        },
+                        child: Stack(
+                          children: [
+                            AppIcon(icon: Icons.shopping_cart),
+                            popularController.totalItems >= 1
+                                ? Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: AppIcon(
+                                      icon: Icons.circle,
+                                      size: 20,
+                                      iconColor: Colors.transparent,
+                                      bgColor: AppColors.mainColor,
+                                    ),
+                                  )
+                                : Container(),
+                            popularController.totalItems >= 1
+                                ? Positioned(
+                                    top: 3,
+                                    right: 3,
+                                    child: BigText(
+                                      text:
+                                          popularController.totalItems.toString(),
+                                      textSize: 12,
+                                      color: Colors.white,
+                                    ))
+                                : Container(),
+                          ],
+                        ),
                       );
                     })
                   ],

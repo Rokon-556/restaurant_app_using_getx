@@ -13,13 +13,11 @@ class CartController extends GetxController {
   Map<int, CartModel> _items = {};
   Map<int, CartModel> get items => _items;
 
-
-
   void addItem(ProductModel product, int quantity) {
     var totalQuantity = 0;
-    if(_items.containsKey(product.id)){
-      _items.update(product.id!, (value){
-        totalQuantity = value.quantity!+quantity;
+    if (_items.containsKey(product.id)) {
+      _items.update(product.id!, (value) {
+        totalQuantity = value.quantity! + quantity;
         return CartModel(
             id: value.id,
             name: value.name,
@@ -28,48 +26,49 @@ class CartController extends GetxController {
             img: value.img,
             quantity: totalQuantity,
             // quantity: value.quantity!+quantity,
-            time: DateTime.now().toIso8601String());
+            time: DateTime.now().toIso8601String(),
+            productModel: product);
       });
-      if(totalQuantity<=0){
+      if (totalQuantity <= 0) {
         _items.remove(product.id);
       }
-    }else{
-     if(quantity>0){
-       _items.putIfAbsent(
-         product.id ?? 1,
-             () {
-           return CartModel(
-               id: product.id,
-               name: product.name,
-               price: product.price,
-               isExist: true,
-               img: product.img,
-               quantity: quantity,
-               time: DateTime.now().toIso8601String());
-         },
-       );
-     }else{
-         Get.snackbar('Item Count', 'You should add at least an item !',
-             backgroundColor: AppColors.mainColor, colorText: Colors.white);
-     }
+    } else {
+      if (quantity > 0) {
+        _items.putIfAbsent(
+          product.id ?? 1,
+          () {
+            return CartModel(
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                isExist: true,
+                img: product.img,
+                quantity: quantity,
+                time: DateTime.now().toIso8601String(),
+                productModel: product);
+          },
+        );
+      } else {
+        Get.snackbar('Item Count', 'You should add at least an item !',
+            backgroundColor: AppColors.mainColor, colorText: Colors.white);
+      }
     }
 
-
-
+    update();
   }
 
-  bool existInCart(ProductModel product){
-    if(_items.containsKey(product.id)){
+  bool existInCart(ProductModel product) {
+    if (_items.containsKey(product.id)) {
       return true;
     }
     return false;
   }
 
-  int getQuantity(ProductModel product){
+  int getQuantity(ProductModel product) {
     var quantity = 0;
-    if(_items.containsKey(product.id)){
+    if (_items.containsKey(product.id)) {
       _items.forEach((key, value) {
-        if(key == product.id){
+        if (key == product.id) {
           quantity = value.quantity!;
         }
       });
@@ -77,7 +76,7 @@ class CartController extends GetxController {
     return quantity;
   }
 
-  int get totaItems{
+  int get totaItems {
     var totalQuantity = 0;
     _items.forEach((key, value) {
       totalQuantity = totalQuantity + value.quantity!;
@@ -85,5 +84,17 @@ class CartController extends GetxController {
     return totalQuantity;
   }
 
+  List<CartModel> get getCartItems {
+    return _items.entries.map((e) {
+      return e.value;
+    }).toList();
+  }
 
+  int get totalPrice{
+    var total = 0;
+    _items.forEach((key, value) {
+      total += value.quantity! * value.price!;
+    });
+    return total;
+  }
 }

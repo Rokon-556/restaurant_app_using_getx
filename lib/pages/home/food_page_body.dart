@@ -122,7 +122,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: ()=>Get.toNamed(AppRoutes.getRecommendedFood(index)),
+                        onTap: ()=>Get.toNamed(AppRoutes.getRecommendedFood(index,'homepage')),
                         child: popularFoodItem(
                             recommendedProduct.recommendedProductList[index]),
                       );
@@ -236,7 +236,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       child: Stack(
         children: [
           InkWell(
-            onTap: ()=> Get.toNamed(AppRoutes.getPopularFood(index)),
+            onTap: ()=> Get.toNamed(AppRoutes.getPopularFood(index,'homepage')),
             child: Container(
               height: Dimension.pageContainerView,
               margin: const EdgeInsets.only(left: 5, right: 5),

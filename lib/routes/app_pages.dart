@@ -1,3 +1,4 @@
+import 'package:food_delivery/pages/cart/cart_page.dart';
 import 'package:food_delivery/pages/food/popular_food_details.dart';
 import 'package:food_delivery/pages/food/recommeded_food_details.dart';
 import 'package:food_delivery/pages/home/main_food_page.dart';
@@ -17,8 +18,10 @@ class AppPages {
         name: AppRoutes.POPULAR_FOOD,
         page: () {
           var pageID = Get.parameters['pageId'];
+          var page = Get.parameters['page'];
           return PopularFoodDetail(
             pageId: int.parse(pageID ?? ''),
+            page: page ?? '',
           );
         },
         transition: Transition.fadeIn
@@ -29,12 +32,23 @@ class AppPages {
         name: AppRoutes.RECOMMENEDED_FOOD,
         page: () {
           var pageID = Get.parameters['pageId'];
+          var page = Get.parameters['page'];
           return RecommendedFoodDetails(
             pageId: int.parse(pageID ?? ''),
+            page: page ?? '',
           );
         },
         transition: Transition.fadeIn
         // binding: FriendBinding(),
         ),
+    GetPage(
+      // name: AppRoutes.getRecommendedFood(),
+        name: AppRoutes.CART_PAGE,
+        page: () {
+          return const CartPage();
+        },
+        transition: Transition.fadeIn
+      // binding: FriendBinding(),
+    ),
   ];
 }
