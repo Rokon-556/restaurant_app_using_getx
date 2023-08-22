@@ -1,7 +1,7 @@
 import 'package:food_delivery/pages/cart/cart_page.dart';
 import 'package:food_delivery/pages/food/popular_food_details.dart';
 import 'package:food_delivery/pages/food/recommeded_food_details.dart';
-import 'package:food_delivery/pages/home/main_food_page.dart';
+import 'package:food_delivery/pages/home/home_page.dart';
 import 'package:food_delivery/routes/app_routes.dart';
 import 'package:get/get.dart';
 
@@ -10,7 +10,7 @@ class AppPages {
     GetPage(
       // name: AppRoutes.getInitial(),
       name: AppRoutes.INITIAL,
-      page: () => const MainFoodPage(),
+      page: () => const HomePage(),
       // binding: FriendListBinding(),
     ),
     GetPage(
