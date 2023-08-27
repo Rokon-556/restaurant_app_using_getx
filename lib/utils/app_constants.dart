@@ -1,4 +1,5 @@
 class AppConstants{
+
   static const String APP_NAME = "MyFood";
   static const int APP_VERSION = 1;
   static const String TOKEN = "DBToken";
@@ -6,5 +7,9 @@ class AppConstants{
   static const String UPLOAD = '/uploads/';
   static const String POPULAR_FOOD_LIST='/api/v1/products/popular';
   static const String RECOMMENDED_FOOD_LIST='/api/v1/products/recommended';
+
+  //storage key
+
+  static const String CART_ITEM = 'cart_item';
 
 }

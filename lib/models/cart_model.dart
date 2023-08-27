@@ -38,6 +38,7 @@ class CartModel {
         "img": img,
         "quantity": quantity,
         "isExist": isExist,
-        "time": time
+        "time": time,
+        "product": productModel!.toJson()
       };
 }
