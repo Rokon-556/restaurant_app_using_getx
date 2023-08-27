@@ -35,4 +35,6 @@ class Dimension {
 
   static double foodDetailImageSize = deviceHeight / 2.2;
   static double bottomHeight = deviceHeight / 6.5;
+
+  static double splashImageWidth = deviceHeight/3;
 }

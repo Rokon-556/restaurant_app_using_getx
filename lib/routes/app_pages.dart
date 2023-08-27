@@ -2,6 +2,7 @@ import 'package:food_delivery/pages/cart/cart_page.dart';
 import 'package:food_delivery/pages/food/popular_food_details.dart';
 import 'package:food_delivery/pages/food/recommeded_food_details.dart';
 import 'package:food_delivery/pages/home/home_page.dart';
+import 'package:food_delivery/pages/splash/splash_page.dart';
 import 'package:food_delivery/routes/app_routes.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +12,11 @@ class AppPages {
       // name: AppRoutes.getInitial(),
       name: AppRoutes.INITIAL,
       page: () => const HomePage(),
-      // binding: FriendListBinding(),
+    ),
+    GetPage(
+      // name: AppRoutes.getSplashScreen(),
+      name: AppRoutes.SPLASH_SCREEN,
+      page: () => const SplashScreen(),
     ),
     GetPage(
         // name: AppRoutes.getPopularFood(),
@@ -25,7 +30,6 @@ class AppPages {
           );
         },
         transition: Transition.fadeIn
-        // binding: FriendBinding(),
         ),
     GetPage(
         // name: AppRoutes.getRecommendedFood(),
@@ -39,7 +43,6 @@ class AppPages {
           );
         },
         transition: Transition.fadeIn
-        // binding: FriendBinding(),
         ),
     GetPage(
       // name: AppRoutes.getRecommendedFood(),
@@ -48,7 +51,6 @@ class AppPages {
           return const CartPage();
         },
         transition: Transition.fadeIn
-      // binding: FriendBinding(),
     ),
   ];
 }

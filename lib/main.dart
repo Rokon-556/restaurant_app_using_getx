@@ -16,19 +16,21 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Get.find<PopularProductListController>().getPopularProductList();
-    Get.find<RecommenededProductListController>().getRecommendedProductList();
-    return GetMaterialApp(
-      title: 'food App',
-      debugShowCheckedModeBanner: false,
-      // home: CartPage(),
-      initialRoute: AppRoutes.INITIAL,
-      getPages: AppPages.pageList,
+    return GetBuilder<PopularProductListController>(
+      builder: (_) {
+        return GetBuilder<RecommenededProductListController>(
+          builder: (_) {
+            return GetMaterialApp(
+              title: 'food App',
+              debugShowCheckedModeBanner: false,
+              initialRoute: AppRoutes.SPLASH_SCREEN,
+              getPages: AppPages.pageList,
+            );
+          },
+        );
+      },
     );
   }
 }
-
-
