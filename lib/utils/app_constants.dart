@@ -11,5 +11,6 @@ class AppConstants{
   //storage key
 
   static const String CART_ITEM = 'cart_item';
+  static const String CART_HISTORY_ITEM = 'cart_history_item';
 
 }

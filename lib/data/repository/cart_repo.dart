@@ -11,6 +11,7 @@ class CartRepository{
   CartRepository({required this.preferences});
 
   List<String> cartItem =[];
+  List<String> cartHistoryItem =[];
 
   void addCartItems(List<CartModel> cartItems){
     cartItem = [];
@@ -34,10 +35,40 @@ class CartRepository{
       log('Inside cart:${cartItem.toString()}');
     }
 
-    cartItem.forEach((element) => CartModel.fromJson(jsonDecode(element)));
+    cartItem.forEach((element) => cartList.add(CartModel.fromJson(jsonDecode(element))));
 
 
     return cartList;
+
+  }
+
+  void addToCartHistory(){
+    if(preferences.containsKey(AppConstants.CART_HISTORY_ITEM)){
+      cartHistoryItem = preferences.getStringList(AppConstants.CART_HISTORY_ITEM)!;
+    }
+    for(int i= 0;i<cartItem.length;i++){
+      log('cart history:${cartItem[i]}');
+      cartHistoryItem.add(cartItem[i]);
+    }
+    removeCart();
+    preferences.setStringList(AppConstants.CART_HISTORY_ITEM, cartHistoryItem);
+    log('history length:${getCartHistoryList().length}');
+  }
+
+  void removeCart(){
+    cartItem=[];
+    preferences.remove(AppConstants.CART_ITEM);
+  }
+
+  List<CartModel> getCartHistoryList(){
+    if(preferences.containsKey(AppConstants.CART_HISTORY_ITEM)){
+      cartHistoryItem = [];
+      cartHistoryItem = preferences.getStringList(AppConstants.CART_HISTORY_ITEM)!;
+    }
+    List<CartModel> cartListHistory =[];
+    cartHistoryItem.forEach((element) =>cartListHistory.add(CartModel.fromJson(jsonDecode(element))));
+
+    return cartListHistory;
 
   }
 }

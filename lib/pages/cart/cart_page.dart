@@ -205,7 +205,7 @@ class CartPage extends StatelessWidget {
               ],
             ),
             buttonText: 'Check Out',
-            // onTap: () => popularProduct.addItem(product),
+            onTap: () => cartController.addToHistory(),
           );
         },
       ),
