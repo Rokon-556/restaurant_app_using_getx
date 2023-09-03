@@ -13,11 +13,15 @@ class CartRepository{
   List<String> cartItem =[];
   List<String> cartHistoryItem =[];
 
-  void addCartItems(List<CartModel> cartItems){
+  void addToCartItems(List<CartModel> cartItems){
+    // preferences.remove(AppConstants.CART_ITEM);
+    // preferences.remove(AppConstants.CART_HISTORY_ITEM);
     cartItem = [];
-    
+    var dateTime = DateTime.now().toString();
+    // var dateTime = DateTime.now().toIso8601String();
+
     cartItems.forEach((element) {
-      log('${element.quantity}');
+      element.time = dateTime;
       return cartItem.add(jsonEncode(element));
     });
     preferences.setStringList(AppConstants.CART_ITEM, cartItem);
@@ -53,6 +57,9 @@ class CartRepository{
     removeCart();
     preferences.setStringList(AppConstants.CART_HISTORY_ITEM, cartHistoryItem);
     log('history length:${getCartHistoryList().length}');
+    for(int j= 0;j<getCartHistoryList().length;j++){
+      log('Order Time is : ${getCartHistoryList()[j].time.toString()}');
+    }
   }
 
   void removeCart(){

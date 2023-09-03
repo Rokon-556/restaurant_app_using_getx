@@ -75,7 +75,12 @@ class CartPage extends StatelessWidget {
                                   Get.toNamed(AppRoutes.getPopularFood(popularIndex,'cartpage'));
                                 }else{
                                   var recommendIndex = Get.find<RecommenededProductListController>().recommendedProductList.indexOf(cartController.getCartItems[index].productModel);
-                                  Get.toNamed(AppRoutes.getRecommendedFood(recommendIndex,'cartpage'));
+                                  if(recommendIndex<0){
+                                    Get.snackbar('History Product', 'History product cannot be reviewed !',
+                                        backgroundColor: AppColors.mainColor, colorText: Colors.white);
+                                  }else{
+                                    Get.toNamed(AppRoutes.getRecommendedFood(recommendIndex,'cartpage'));
+                                  }
 
                                 }
                         },

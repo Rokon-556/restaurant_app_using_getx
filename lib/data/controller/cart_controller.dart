@@ -45,7 +45,8 @@ class CartController extends GetxController {
                 isExist: true,
                 img: product.img,
                 quantity: quantity,
-                time: DateTime.now().toIso8601String(),
+                time: DateTime.now().toString(),
+                // time: DateTime.now().toIso8601String(),
                 productModel: product);
           },
         );
@@ -54,7 +55,7 @@ class CartController extends GetxController {
             backgroundColor: AppColors.mainColor, colorText: Colors.white);
       }
     }
-    cartRepo.addCartItems(getCartItems);
+    cartRepo.addToCartItems(getCartItems);
     update();
   }
 
@@ -91,7 +92,7 @@ class CartController extends GetxController {
     }).toList();
   }
 
-  int get totalPrice{
+  int get totalPrice {
     var total = 0;
     _items.forEach((key, value) {
       total += value.quantity! * value.price!;
@@ -99,26 +100,41 @@ class CartController extends GetxController {
     return total;
   }
 
-  List<CartModel> getCartData(){
+  List<CartModel> getCartData() {
     setCartData = cartRepo.getCartList();
     return storageItems;
   }
 
-  set setCartData(List<CartModel> items){
+  set setCartData(List<CartModel> items) {
     storageItems = items;
     log('length of cart item:${storageItems.length}');
-    for(int i = 0 ; i < storageItems.length ; i++){
-      _items.putIfAbsent(storageItems[i].productModel!.id!, () => storageItems[i]);
+    for (int i = 0; i < storageItems.length; i++) {
+      _items.putIfAbsent(
+          storageItems[i].productModel!.id!, () => storageItems[i]);
     }
   }
 
-  void addToHistory(){
+  void addToHistory() {
     cartRepo.addToCartHistory();
     clearCart();
   }
 
-  void clearCart(){
-    _items={};
+  void clearCart() {
+    _items = {};
+    update();
+  }
+
+  List<CartModel> getCartHistoryList() {
+    return cartRepo.getCartHistoryList();
+  }
+
+  set setItems(Map<int, CartModel> setItems) {
+    _items = {};
+    _items = setItems;
+  }
+
+  void addToCartList(){
+    cartRepo.addToCartItems(getCartItems);
     update();
   }
 }
