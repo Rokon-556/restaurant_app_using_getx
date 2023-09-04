@@ -5,6 +5,7 @@ import 'package:food_delivery/data/controller/recommended_product_list_controlle
 import 'package:food_delivery/pages/cart/cart_page.dart';
 import 'package:food_delivery/routes/app_pages.dart';
 import 'package:food_delivery/routes/app_routes.dart';
+import 'package:food_delivery/widgets/no_data_widget.dart';
 import 'package:get/get.dart';
 import 'helper/dependencies.dart' as dep;
 
