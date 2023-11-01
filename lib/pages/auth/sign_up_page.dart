@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimension.dart';
+import 'package:food_delivery/utils/show_custom_snackbar.dart';
 import 'package:food_delivery/widgets/app_text_field.dart';
 import 'package:food_delivery/widgets/big_text.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,31 @@ class SignUpPage extends StatelessWidget {
     final nameController = TextEditingController();
     final phoneController = TextEditingController();
     var signUpImages = ['t.png', 'f.png', 'g.png'];
+
+    void registration(){
+      String name = nameController.text.trim();
+      String email = emailController.text.trim();
+      String phone = phoneController.text.trim();
+      String password = passController.text.trim();
+
+      if(name.isEmpty){
+        showCustomSnackBar('Type in your name',title: 'Name');
+      }else if(email.isEmpty){
+        showCustomSnackBar('Email cannot be empty',title: 'Email');
+      }else if(!GetUtils.isEmail(email)){
+        showCustomSnackBar('Email should be valid',title: 'Email');
+      }
+      else if(password.isEmpty){
+        showCustomSnackBar('Password cannot be empty ',title: 'Password');
+      }
+      else if(password.length < 6){
+        showCustomSnackBar('Password should be minimum 6 character ',title: 'Password');
+      }else if(phone.isEmpty){
+        showCustomSnackBar('Phone cannot be empty',title: 'Phone');
+      }else{
+        showCustomSnackBar('All sent well',title: 'Perfect');
+      }
+    }
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -61,17 +87,20 @@ class SignUpPage extends StatelessWidget {
             SizedBox(
               height: Dimension.height20,
             ),
-            Container(
-              width: Dimension.deviceWidth / 2,
-              height: Dimension.deviceHeight / 13,
-              decoration: BoxDecoration(
-                  color: AppColors.mainColor,
-                  borderRadius: BorderRadius.circular(Dimension.radius30)),
-              child: Center(
-                child: BigText(
-                  text: 'Sign Up',
-                  textSize: Dimension.font20 + 10,
-                  color: Colors.white,
+            InkWell(
+              onTap: ()=>registration(),
+              child: Container(
+                width: Dimension.deviceWidth / 2,
+                height: Dimension.deviceHeight / 13,
+                decoration: BoxDecoration(
+                    color: AppColors.mainColor,
+                    borderRadius: BorderRadius.circular(Dimension.radius30)),
+                child: Center(
+                  child: BigText(
+                    text: 'Sign Up',
+                    textSize: Dimension.font20 + 10,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
