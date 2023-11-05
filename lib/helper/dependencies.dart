@@ -9,16 +9,24 @@ import 'package:food_delivery/utils/app_constants.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> init()async{
+import '../data/controller/auth_controller.dart';
+import '../data/repository/auth_repo.dart';
+
+Future<void> init() async {
   final sharedPreference = await SharedPreferences.getInstance();
-  Get.lazyPut(()=>sharedPreference);
+  Get.lazyPut(() => sharedPreference);
   Get.lazyPut(() => ApiClient(baseUrl: AppConstants.BASE_URL));
   // api client
   Get.lazyPut(() => PopularProductRepo(apiClient: Get.find())); // repository
-  Get.lazyPut(() => RecommenededProductRepo(apiClient: Get.find())); // repository
-  Get.lazyPut(()=>CartRepository(preferences: Get.find()));
-  
-  Get.lazyPut(() => PopularProductListController(productRepo: Get.find())); // controller
-  Get.lazyPut(() => RecommenededProductListController(recommendedProductRepo: Get.find()));
-  Get.lazyPut(()=>CartController(cartRepo: Get.find()));
+  Get.lazyPut(
+      () => RecommenededProductRepo(apiClient: Get.find())); // repository
+  Get.lazyPut(() => CartRepository(preferences: Get.find()));
+  Get.lazyPut(() => AuthRepo(apiClient: Get.find(), preference: Get.find()));
+
+  Get.lazyPut(() =>
+      PopularProductListController(productRepo: Get.find())); // controller
+  Get.lazyPut(() =>
+      RecommenededProductListController(recommendedProductRepo: Get.find()));
+  Get.lazyPut(() => CartController(cartRepo: Get.find()));
+  Get.lazyPut(() => AuthController(authRepo: Get.find()));
 }
