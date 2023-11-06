@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/data/controller/auth_controller.dart';
 import 'package:food_delivery/data/controller/cart_controller.dart';
 import 'package:food_delivery/data/controller/popular_product_list_controller.dart';
 import 'package:food_delivery/models/product_model.dart';
@@ -225,35 +226,43 @@ class CartPage extends StatelessWidget {
       ),
       bottomNavigationBar: GetBuilder<CartController>(
         builder: (cartController) {
-          return cartController.getCartItems.isNotEmpty ? BottomSection(
-            widget: Row(
-              children: [
-
-                SizedBox(
-                  width: Dimension.width10 / 2,
-                ),
-                BigText(
-                  text: '\$  ${cartController.totalPrice}',
-                  textSize: 18,
-                ),
-                SizedBox(
-                  width: Dimension.width10 / 2,
-                ),
-              ],
-            ),
-            buttonText: 'Check Out',
-            onTap: () => cartController.addToHistory(),
-          ) : Container(
-            height: Dimension.bottomHeight,
-            padding: EdgeInsets.symmetric(
-                horizontal: Dimension.width20, vertical: Dimension.height20),
-            decoration: BoxDecoration(
-                color: AppColors.buttonBackgroundColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(Dimension.radius20),
-                  topRight: Radius.circular(Dimension.radius20),
-                )),
-          );
+          return cartController.getCartItems.isNotEmpty
+              ? BottomSection(
+                  widget: Row(
+                    children: [
+                      SizedBox(
+                        width: Dimension.width10 / 2,
+                      ),
+                      BigText(
+                        text: '\$  ${cartController.totalPrice}',
+                        textSize: 18,
+                      ),
+                      SizedBox(
+                        width: Dimension.width10 / 2,
+                      ),
+                    ],
+                  ),
+                  buttonText: 'Check Out',
+                  onTap: () {
+                    if (Get.find<AuthController>().userLoggedIn()) {
+                      cartController.addToHistory();
+                    } else {
+                      Get.toNamed(AppRoutes.getSignIn());
+                    }
+                  },
+                )
+              : Container(
+                  height: Dimension.bottomHeight,
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Dimension.width20,
+                      vertical: Dimension.height20),
+                  decoration: BoxDecoration(
+                      color: AppColors.buttonBackgroundColor,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(Dimension.radius20),
+                        topRight: Radius.circular(Dimension.radius20),
+                      )),
+                );
         },
       ),
     );

@@ -31,6 +31,9 @@ class AuthRepo{
   Future<String> getToken()async{
     return preference.getString(AppConstants.TOKEN)??'';
   }
+  bool isLoggedIn(){
+     return preference.containsKey(AppConstants.TOKEN);
+  }
 
   Future<void> savePhoneAndPassword(String phone, String password) async {
     try{

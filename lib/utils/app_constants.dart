@@ -2,7 +2,7 @@ class AppConstants{
 
   static const String APP_NAME = "MyFood";
   static const int APP_VERSION = 1;
-  static const String TOKEN = "DBToken";
+  static const String TOKEN = "";
   static const String PHONE = "";
   static const String PASSWORD = "";
   static const String BASE_URL = 'http://mvs.bslmeiyu.com';
