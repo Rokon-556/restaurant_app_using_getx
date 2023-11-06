@@ -30,9 +30,9 @@ class MyApp extends StatelessWidget {
             return GetMaterialApp(
               title: 'food App',
               debugShowCheckedModeBanner: false,
-              home: SignInPage(),
-              // initialRoute: AppRoutes.SPLASH_SCREEN,
-              // getPages: AppPages.pageList,
+              // home: SignInPage(),
+              initialRoute: AppRoutes.SPLASH_SCREEN,
+              getPages: AppPages.pageList,
             );
           },
         );

@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/data/controller/auth_controller.dart';
 import 'package:food_delivery/models/sign_up_body.dart';
+import 'package:food_delivery/pages/auth/sign_in_page.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/custom_loader.dart';
 import 'package:food_delivery/utils/dimension.dart';
@@ -49,7 +50,7 @@ class SignUpPage extends StatelessWidget {
             name: name, email: email, phone: phone, password: password);
         authController.registration(signUpBody).then((status) {
           if (status.isSuccess) {
-            log('SignUp success');
+            Get.to(()=>const SignInPage());
           } else {
             log(status.message);
           }
@@ -87,7 +88,7 @@ class SignUpPage extends StatelessWidget {
                     AppTextField(
                         editingController: passController,
                         hintText: 'password',
-                        icon: Icons.password_outlined),
+                        icon: Icons.password_outlined,isObscured: true,),
                     SizedBox(
                       height: Dimension.height20,
                     ),
