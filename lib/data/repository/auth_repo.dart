@@ -14,7 +14,7 @@ class AuthRepo{
   AuthRepo({required this.apiClient,required this.preference});
 
   Future<Response> registration(SignUpBody signUpBody)async{
-    return await apiClient.postData(AppConstants.REGISTRATION_URI, signUpBody.toString());
+    return await apiClient.postData(AppConstants.REGISTRATION_URI, signUpBody.toJson());
   }
 
   Future<Response> login(String email,String password)async{

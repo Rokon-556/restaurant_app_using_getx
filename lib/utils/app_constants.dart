@@ -5,7 +5,8 @@ class AppConstants{
   static const String TOKEN = "";
   static const String PHONE = "";
   static const String PASSWORD = "";
-  static const String BASE_URL = 'http://mvs.bslmeiyu.com';
+  static const String BASE_URL = 'http://127.0.0.1:8000';
+  // static const String BASE_URL = 'http://mvs.bslmeiyu.com';
   static const String UPLOAD = '/uploads/';
   static const String POPULAR_FOOD_LIST='/api/v1/products/popular';
   static const String RECOMMENDED_FOOD_LIST='/api/v1/products/recommended';
