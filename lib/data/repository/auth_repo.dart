@@ -22,14 +22,14 @@ class AuthRepo{
         {'email':email,'password':password});
   }
 
-  saveToken(String token)async {
+  Future<bool> saveToken(String token)async {
     apiClient.token = token;
     apiClient.updateHeader(token);
     return await preference.setString(AppConstants.TOKEN, token);
   }
 
   Future<String> getToken()async{
-    return preference.getString(AppConstants.TOKEN)??'';
+    return preference.getString(AppConstants.TOKEN)??'None';
   }
   bool isLoggedIn(){
      return preference.containsKey(AppConstants.TOKEN);
@@ -37,10 +37,18 @@ class AuthRepo{
 
   Future<void> savePhoneAndPassword(String phone, String password) async {
     try{
-      await preference.setString(AppConstants.TOKEN, phone);
-      await preference.setString(AppConstants.TOKEN, password);
+      await preference.setString(AppConstants.PHONE, phone);
+      await preference.setString(AppConstants.PASSWORD, password);
     }catch(e){
       log(e.toString());
     }
+  }
+  bool clearSavedData(){
+    preference.remove(AppConstants.TOKEN);
+    preference.remove(AppConstants.PASSWORD);
+    preference.remove(AppConstants.PHONE);
+    apiClient.token = '';
+    apiClient.updateHeader('');
+    return true;
   }
 }

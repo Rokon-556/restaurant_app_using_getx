@@ -67,6 +67,12 @@ class CartRepository{
     preferences.remove(AppConstants.CART_ITEM);
   }
 
+  void clearCartHistory(){
+    removeCart();
+    cartHistoryItem =[];
+    preferences.remove(AppConstants.CART_HISTORY_ITEM);
+  }
+
   List<CartModel> getCartHistoryList(){
     if(preferences.containsKey(AppConstants.CART_HISTORY_ITEM)){
       cartHistoryItem = [];

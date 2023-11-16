@@ -38,13 +38,13 @@ class SignInPage extends StatelessWidget {
         showCustomSnackBar('Password should be minimum 6 character ',
             title: 'Password');
       }  else {
-        showCustomSnackBar('All sent well', title: 'Perfect');
+
 
         authController.login(email, password).then((status) {
           if (status.isSuccess) {
             Get.toNamed(AppRoutes.getCart());
           } else {
-            log(status.message);
+            showCustomSnackBar(status.message);
           }
         });
       }

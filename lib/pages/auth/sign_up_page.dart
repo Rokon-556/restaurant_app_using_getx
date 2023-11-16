@@ -45,14 +45,13 @@ class SignUpPage extends StatelessWidget {
       } else if (phone.isEmpty) {
         showCustomSnackBar('Phone cannot be empty', title: 'Phone');
       } else {
-        showCustomSnackBar('All sent well', title: 'Perfect');
         SignUpBody signUpBody = SignUpBody(
             name: name, email: email, phone: phone, password: password);
         authController.registration(signUpBody).then((status) {
           if (status.isSuccess) {
             Get.to(()=>const SignInPage());
           } else {
-            log(status.message);
+            showCustomSnackBar(status.message);
           }
         });
       }
