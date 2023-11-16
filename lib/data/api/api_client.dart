@@ -2,15 +2,17 @@ import 'dart:developer';
 
 import 'package:food_delivery/utils/app_constants.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiClient extends GetConnect implements GetxService {
   late String token;
   final String baseUrl;
+  final SharedPreferences sharedPreferences;
   late Map<String, String> _mainHeaders;
-  ApiClient({required this.baseUrl}) {
+  ApiClient({required this.baseUrl,required this.sharedPreferences}) {
     baseUrl = baseUrl;
     timeout = const Duration(seconds: 30);
-    token = AppConstants.TOKEN;
+    token = sharedPreferences.getString(AppConstants.TOKEN)?? '';
     _mainHeaders = {
       'Content-type': 'Application/json; charset=UTF-8',
       'Authorization': 'Bearer $token'
@@ -22,9 +24,9 @@ class ApiClient extends GetConnect implements GetxService {
       'Authorization': 'Bearer $token'
     };
   }
-  Future<Response> getData(String uri) async {
+  Future<Response> getData(String uri,[Map<String,String>? headers]) async {
     try {
-      Response response = await get(uri);
+      Response response = await get(uri,headers: headers??_mainHeaders);
       return response;
     } catch (e) {
       return Response(statusCode: 1, statusText: e.toString());

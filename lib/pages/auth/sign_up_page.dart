@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/data/controller/auth_controller.dart';
 import 'package:food_delivery/models/sign_up_body.dart';
 import 'package:food_delivery/pages/auth/sign_in_page.dart';
+import 'package:food_delivery/routes/app_routes.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/custom_loader.dart';
 import 'package:food_delivery/utils/dimension.dart';
@@ -49,7 +50,7 @@ class SignUpPage extends StatelessWidget {
             name: name, email: email, phone: phone, password: password);
         authController.registration(signUpBody).then((status) {
           if (status.isSuccess) {
-            Get.to(()=>const SignInPage());
+            Get.offNamed(AppRoutes.getInitial());
           } else {
             showCustomSnackBar(status.message);
           }
