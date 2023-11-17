@@ -1,3 +1,4 @@
+import 'package:food_delivery/pages/address/add_address_page.dart';
 import 'package:food_delivery/pages/auth/sign_in_page.dart';
 import 'package:food_delivery/pages/cart/cart_page.dart';
 import 'package:food_delivery/pages/food/popular_food_details.dart';
@@ -18,6 +19,11 @@ class AppPages {
       // name: AppRoutes.getSplashScreen(),
       name: AppRoutes.SPLASH_SCREEN,
       page: () => const SplashScreen(),
+    ),
+    GetPage(
+      // name: AppRoutes.getSplashScreen(),
+      name: AppRoutes.ADD_ADDRESS,
+      page: () => const AddAddressPage(),
     ),
     GetPage(
       // name: AppRoutes.getSplashScreen(),
