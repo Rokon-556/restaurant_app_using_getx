@@ -9,9 +9,9 @@ class UserController extends GetxController implements GetxService {
   bool _isLoading = false;
 
   bool get isLoading => _isLoading;
-  late UserModel _userModel;
+  UserModel? _userModel;
 
-  UserModel get userModel => _userModel;
+  UserModel? get userModel => _userModel;
 
   UserController({required this.userRepo});
 
@@ -20,6 +20,7 @@ class UserController extends GetxController implements GetxService {
     late ResponseModel responseModel;
     if (response.statusCode == 200) {
       _userModel = UserModel.fromJson(response.body);
+      print('User Name * ${_userModel?.name}');
       _isLoading = true;
       responseModel = ResponseModel(true, 'success');
     } else {

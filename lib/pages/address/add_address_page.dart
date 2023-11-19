@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery/data/controller/auth_controller.dart';
 import 'package:food_delivery/data/controller/location_controller.dart';
@@ -32,8 +34,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
   void initState() {
     super.initState();
     _isLogged = Get.find<AuthController>().userLoggedIn();
-    if (_isLogged) {
-      // if(_isLogged && Get.find<UserController>().userModel==null){
+      if(_isLogged && Get.find<UserController>().userModel==null){
       Get.find<UserController>().getUserData();
     }
     if (Get.find<LocationController>().addressList.isNotEmpty) {
@@ -58,9 +59,10 @@ class _AddAddressPageState extends State<AddAddressPage> {
         backgroundColor: AppColors.mainColor,
       ),
       body: GetBuilder<UserController>(builder: (userController){
-        if( _contactPersonName.text.isNotEmpty){
-          _contactPersonName.text = userController.userModel.name;
-          _contactPersonNumber.text = userController.userModel.phone;
+        if( userController.userModel!=null  && _contactPersonName.text.isEmpty){
+          _contactPersonName.text = userController.userModel?.name??'';
+          log(' Add adress User : ${_contactPersonName.text}');
+          _contactPersonNumber.text = userController.userModel?.phone??'';
           if(Get.find<LocationController>().addressList.isNotEmpty){
             _addressController.text = Get.find<LocationController>().getUserAddress().address;
           }
@@ -91,10 +93,10 @@ class _AddAddressPageState extends State<AddAddressPage> {
                   zoomControlsEnabled: false,
                   onCameraMove: (position) => _cameraPosition = position,
                   onCameraIdle: () {
-                    locController.updatePosition(_cameraPosition, true);
+                    // locController.updatePosition(_cameraPosition, true);
                   },
                   onMapCreated: (GoogleMapController gMapController) {
-                    locController.setLocation(gMapController);
+                    // locController.setLocation(gMapController);
                   },
                 ),
               ),
