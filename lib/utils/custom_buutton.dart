@@ -62,10 +62,12 @@ class CustomButton extends StatelessWidget {
                     : SizedBox(),
                 Text(
                   buttonText,
-                  style: TextStyle(fontSize: fontSize ?? Dimension.font20),
-                  color: transparent
-                      ? Theme.of(context).primaryColor
-                      : Theme.of(context).cardColor,
+                  style: TextStyle(
+                    fontSize: fontSize ?? Dimension.font20,
+                    color: transparent
+                        ? Theme.of(context).primaryColor
+                        : Theme.of(context).cardColor,
+                  ),
                 )
               ],
             )),
