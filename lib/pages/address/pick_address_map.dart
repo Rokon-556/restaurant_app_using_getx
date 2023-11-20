@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/data/controller/location_controller.dart';
+import 'package:food_delivery/utils/colors.dart';
+import 'package:food_delivery/utils/dimension.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -71,6 +73,37 @@ class _PickAddressMapState extends State<PickAddressMap> {
                           )
                         : CircularProgressIndicator(),
                   ),
+                  Positioned(
+                      top: Dimension.height40,
+                      left: Dimension.width20,
+                      right: Dimension.width20,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: Dimension.width10),
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: AppColors.mainColor,
+                            borderRadius:
+                                BorderRadius.circular(Dimension.radius10)),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.location_on,
+                              size: 26,
+                              color: AppColors.yellowColor,
+                            ),
+                            Expanded(
+                                child: Text(
+                              locationController.pickPlaceMark.name ?? '',
+                              style: TextStyle(
+                                fontSize: Dimension.font20,
+                                color: Colors.white,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ))
+                          ],
+                        ),
+                      ))
                 ],
               ),
             ),
