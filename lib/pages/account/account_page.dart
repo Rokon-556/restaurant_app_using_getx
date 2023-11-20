@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/data/controller/auth_controller.dart';
 import 'package:food_delivery/data/controller/cart_controller.dart';
+import 'package:food_delivery/data/controller/location_controller.dart';
 import 'package:food_delivery/data/controller/user_controller.dart';
 import 'package:food_delivery/pages/account/account_widget.dart';
 import 'package:food_delivery/routes/app_routes.dart';
@@ -108,16 +109,41 @@ class AccountPage extends StatelessWidget {
                               SizedBox(
                                 height: Dimension.height20,
                               ),
-                              AccountWidget(
-                                appIcon: AppIcon(
-                                  icon: Icons.location_on_outlined,
-                                  iconSize: Dimension.height20,
-                                  size: Dimension.height40,
-                                  bgColor: AppColors.yellowColor,
-                                  iconColor: Colors.white,
-                                ),
-                                bigText: BigText(text: 'Address'),
-                              ),
+                            GetBuilder<LocationController>(builder: (locController){
+                              if(_isLoggedIn && locController.addressList.isEmpty){
+                                return InkWell(
+                                  onTap: (){
+                                    Get.offNamed(AppRoutes.getAddressPage());
+                                  },
+                                  child: AccountWidget(
+                                    appIcon: AppIcon(
+                                      icon: Icons.location_on_outlined,
+                                      iconSize: Dimension.height20,
+                                      size: Dimension.height40,
+                                      bgColor: AppColors.yellowColor,
+                                      iconColor: Colors.white,
+                                    ),
+                                    bigText: BigText(text: 'Fill Your Address'),
+                                  ),
+                                );
+                              }else{
+                                return InkWell(
+                                  onTap: (){
+                                    Get.offNamed(AppRoutes.getAddressPage());
+                                  },
+                                  child: AccountWidget(
+                                    appIcon: AppIcon(
+                                      icon: Icons.location_on_outlined,
+                                      iconSize: Dimension.height20,
+                                      size: Dimension.height40,
+                                      bgColor: AppColors.yellowColor,
+                                      iconColor: Colors.white,
+                                    ),
+                                    bigText: BigText(text: 'Your Address'),
+                                  ),
+                                );
+                              }
+                            }),
                               SizedBox(
                                 height: Dimension.height20,
                               ),

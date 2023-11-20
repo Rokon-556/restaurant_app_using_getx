@@ -5,11 +5,11 @@ import '../utils/colors.dart';
 import '../utils/dimension.dart';
 
 class BottomSection extends StatelessWidget {
-  final Widget widget;
+  final Widget? widget;
   final String? price;
   final VoidCallback? onTap;
   final String? buttonText;
-  const BottomSection({super.key,required this.widget, this.price,this.onTap,this.buttonText});
+  const BottomSection({super.key,this.widget, this.price,this.onTap,this.buttonText});
 
   @override
   Widget build(BuildContext context) {
