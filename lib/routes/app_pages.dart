@@ -8,12 +8,22 @@ import 'package:food_delivery/pages/splash/splash_page.dart';
 import 'package:food_delivery/routes/app_routes.dart';
 import 'package:get/get.dart';
 
+import '../pages/address/pick_address_map.dart';
+
 class AppPages {
   static var pageList = [
     GetPage(
       // name: AppRoutes.getInitial(),
       name: AppRoutes.INITIAL,
       page: () => const HomePage(),
+    ),
+    GetPage(
+      // name: AppRoutes.getInitial(),
+      name: AppRoutes.ADD_ADDRESS_MAP,
+      page: () {
+        PickAddressMap _pickAddressMap = Get.arguments;
+        return _pickAddressMap;
+      },
     ),
     GetPage(
       // name: AppRoutes.getSplashScreen(),

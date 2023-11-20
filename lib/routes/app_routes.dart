@@ -6,6 +6,7 @@ class AppRoutes{
   static const String CART_PAGE = '/cart-page';
   static const String SIGN_IN = '/sign-in';
   static const String ADD_ADDRESS = '/add-address';
+  static const String ADD_ADDRESS_MAP = '/add-address-map';
 
   static String getInitial()=>'$INITIAL';
   static String getSplashScreen()=>'$SPLASH_SCREEN';
@@ -14,4 +15,5 @@ class AppRoutes{
   static String getCart()=>'$CART_PAGE';
   static String getSignIn()=>'$SIGN_IN';
   static String getAddressPage()=>'$ADD_ADDRESS';
+  static String getAddressMapPage()=>'$ADD_ADDRESS_MAP';
 }

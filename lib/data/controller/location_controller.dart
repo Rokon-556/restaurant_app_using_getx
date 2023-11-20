@@ -96,6 +96,8 @@ class LocationController extends GetxController implements GetxService {
       } catch (e) {
         log(e.toString());
       }
+      _loading = false;
+      update();
     }
   }
 
@@ -152,5 +154,9 @@ class LocationController extends GetxController implements GetxService {
   Future<bool> saveUserAddress(AddressModel address)async{
     String userAddress = jsonEncode(address.toJson());
     return await locationRepo.saveUserAddress(userAddress);
+  }
+
+  String getUserAddressFromLocalStorage(){
+    return locationRepo.getUserAddress();
   }
 }

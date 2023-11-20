@@ -5,6 +5,8 @@ import 'package:food_delivery/data/controller/auth_controller.dart';
 import 'package:food_delivery/data/controller/location_controller.dart';
 import 'package:food_delivery/data/controller/user_controller.dart';
 import 'package:food_delivery/models/address_model.dart';
+import 'package:food_delivery/pages/address/pick_address_map.dart';
+import 'package:food_delivery/routes/app_routes.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimension.dart';
 import 'package:food_delivery/widgets/app_text_field.dart';
@@ -40,6 +42,14 @@ class _AddAddressPageState extends State<AddAddressPage> {
       Get.find<UserController>().getUserData();
     }
     if (Get.find<LocationController>().addressList.isNotEmpty) {
+      /*
+      bug fix for old user from new device
+       */
+      if (Get.find<LocationController>().getUserAddressFromLocalStorage() ==
+          '') {
+        Get.find<LocationController>()
+            .saveUserAddress(Get.find<LocationController>().addressList.last);
+      }
       Get.find<LocationController>().getAllAddressList();
       _cameraPosition = CameraPosition(
           target: LatLng(
@@ -91,6 +101,17 @@ class _AddAddressPageState extends State<AddAddressPage> {
                         width: 2,
                       )),
                   child: GoogleMap(
+                    onTap: (latlng) {
+                      Get.toNamed(
+                        AppRoutes.getAddressMapPage(),
+                        arguments: PickAddressMap(
+                          fromSignUp: false,
+                          fromAddress: false,
+                          googleMapController:
+                              locController.googleMapController,
+                        ),
+                      );
+                    },
                     initialCameraPosition:
                         CameraPosition(target: _initialPosition, zoom: 15),
                     compassEnabled: false,
@@ -100,10 +121,10 @@ class _AddAddressPageState extends State<AddAddressPage> {
                     myLocationEnabled: true,
                     onCameraMove: (position) => _cameraPosition = position,
                     onCameraIdle: () {
-                      // locController.updatePosition(_cameraPosition, true);
+                      locController.updatePosition(_cameraPosition, true);
                     },
                     onMapCreated: (GoogleMapController gMapController) {
-                      // locController.setLocation(gMapController);
+                      locController.setLocation(gMapController);
                     },
                   ),
                 ),
@@ -214,17 +235,16 @@ class _AddAddressPageState extends State<AddAddressPage> {
               AddressModel _addressModel = AddressModel(
                   addressType: locController
                       .addressTypeList[locController.addressTypeIndex],
-                contactPersonName: _contactPersonName.text,
-                contactPersonNumber: _contactPersonNumber.text,
-                address: _addressController.text,
-                latitude: locController.position.latitude.toString(),
-                longitude: locController.position.longitude.toString()
-              );
-              locController.addUserAddress(_addressModel).then((value){
-                if(value.isSuccess){
+                  contactPersonName: _contactPersonName.text,
+                  contactPersonNumber: _contactPersonNumber.text,
+                  address: _addressController.text,
+                  latitude: locController.position.latitude.toString(),
+                  longitude: locController.position.longitude.toString());
+              locController.addUserAddress(_addressModel).then((value) {
+                if (value.isSuccess) {
                   Get.back();
                   Get.snackbar('Address', 'Saved Successfully');
-                }else{
+                } else {
                   Get.snackbar('Address', 'Could not save');
                 }
               });
