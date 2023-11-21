@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/data/controller/location_controller.dart';
+import 'package:food_delivery/routes/app_routes.dart';
 import 'package:food_delivery/utils/colors.dart';
+import 'package:food_delivery/utils/custom_buutton.dart';
 import 'package:food_delivery/utils/dimension.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -78,7 +80,8 @@ class _PickAddressMapState extends State<PickAddressMap> {
                       left: Dimension.width20,
                       right: Dimension.width20,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: Dimension.width10),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: Dimension.width10),
                         height: 50,
                         decoration: BoxDecoration(
                             color: AppColors.mainColor,
@@ -103,7 +106,59 @@ class _PickAddressMapState extends State<PickAddressMap> {
                             ))
                           ],
                         ),
-                      ))
+                      )),
+                  Positioned(
+                      bottom: 200,
+                      right: Dimension.width20,
+                      left: Dimension.width20,
+                      child: locationController.isLoading
+                          ? Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : CustomButton(
+                              buttonText: locationController.inZoned
+                                  ? widget.fromAddress
+                                      ? 'Pick Address'
+                                      : 'Pick Location'
+                                  : 'Service is not available in your choosed Loaction',
+                              onTap: (locationController.buttonDisabled || locationController.loading)
+                                  ? null
+                                  : () {
+                                      if (
+                                          //TODO
+                                          //needed to do that after api addiing
+                                          // locationController.pickPosition.latitude != null &&
+                                          locationController
+                                                  .pickPlaceMark.name !=
+                                              null) {
+                                        print('here');
+                                        if (widget.fromAddress) {
+                                          print('here2');
+                                          if (widget.googleMapController !=
+                                              null) {
+                                            widget.googleMapController
+                                                ?.moveCamera(
+                                              CameraUpdate.newCameraPosition(
+                                                CameraPosition(
+                                                  target: LatLng(
+                                                      locationController
+                                                          .pickPosition
+                                                          .latitude,
+                                                      locationController
+                                                          .pickPosition
+                                                          .longitude),
+                                                ),
+                                              ),
+                                            );
+                                            locationController
+                                                .setAddAddressData();
+                                          }
+                                          Get.toNamed(
+                                              AppRoutes.getAddressPage());
+                                        }
+                                      }
+                                    },
+                            ))
                 ],
               ),
             ),

@@ -33,8 +33,8 @@ class CustomButton extends StatelessWidget {
             : transparent
                 ? Colors.transparent
                 : Theme.of(context).primaryColor,
-        minimumSize: Size(width == null ? width! : Dimension.deviceWidth,
-            height == null ? height! : 50),
+        minimumSize: Size(width == null ?  Dimension.deviceWidth : width!,
+            height != null ? height! : 50),
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius)));
@@ -44,7 +44,7 @@ class CustomButton extends StatelessWidget {
         width: width ?? Dimension.deviceWidth,
         height: height ?? 50,
         child: TextButton(
-            onPressed: () {},
+            onPressed: onTap,
             style: _flatStyle,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

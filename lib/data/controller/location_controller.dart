@@ -31,13 +31,20 @@ class LocationController extends GetxController implements GetxService {
   late Map<String, dynamic> _getAddress;
   Map<String, dynamic> get getAddress => _getAddress;
   late GoogleMapController _mapController;
-  final bool _updateAddressData = true;
-  final bool _changeAddressData = true;
+  bool _updateAddressData = true;
+  bool _changeAddressData = true;
 
   bool get loading => _loading;
   Position get position => _position;
   Position get pickPosition => _pickPosition;
   GoogleMapController get googleMapController=> _mapController;
+
+  bool _isLoading = false; //for service zone
+  bool get isLoading => _isLoading;
+  bool _inZoned = false; //for checking whether in zone
+  bool get inZoned => _inZoned;
+  bool _buttonDisabled = true; //for loading map
+  bool get buttonDisabled => _buttonDisabled;
 
   void setLocation(GoogleMapController mapController) {
     _mapController = mapController;
@@ -88,6 +95,8 @@ class LocationController extends GetxController implements GetxService {
               speed: 1,
               speedAccuracy: 1);
         }
+        ResponseModel responseModel = await getZone(cameraPosition.target.latitude.toString(), cameraPosition.target.latitude.toString(), false);
+       _buttonDisabled = !responseModel.isSuccess; //button value false mean in service area
         if (_changeAddressData) {
           String address = await getAddressFromLatLng(LatLng(
               cameraPosition.target.latitude, cameraPosition.target.longitude));
@@ -98,6 +107,8 @@ class LocationController extends GetxController implements GetxService {
       }
       _loading = false;
       update();
+    }else{
+      _updateAddressData = true;
     }
   }
 
@@ -133,13 +144,13 @@ class LocationController extends GetxController implements GetxService {
     update();
     return responseModel;
   }
-  
+
   Future<void>  getAllAddressList()async{
     Response response = await locationRepo.getAllAddress();
     if(response.statusCode == 200){
       _addressList = [];
       _allAddressList = [];
-      
+
       response.body.forEach((address){
         _addressList.add(AddressModel.fromJson(address));
         _allAddressList.add(AddressModel.fromJson(address));
@@ -150,7 +161,7 @@ class LocationController extends GetxController implements GetxService {
     }
     update();
   }
-  
+
   Future<bool> saveUserAddress(AddressModel address)async{
     String userAddress = jsonEncode(address.toJson());
     return await locationRepo.saveUserAddress(userAddress);
@@ -158,5 +169,37 @@ class LocationController extends GetxController implements GetxService {
 
   String getUserAddressFromLocalStorage(){
     return locationRepo.getUserAddress();
+  }
+
+  void setAddAddressData(){
+    _position = _pickPosition;
+    _placeMark = _pickPlaceMark;
+    _updateAddressData = false;
+    update();
+  }
+
+  Future<ResponseModel> getZone(String lat,String lng,bool markerLoad)async{
+    late ResponseModel responseModel;
+    if(markerLoad){
+      _loading = true;
+    }else{
+      _isLoading = true;
+    }
+    update();
+    Response response = await locationRepo.getZone(lat, lng);
+    if(response.statusCode == 200){
+      _inZoned = true;
+      responseModel = ResponseModel(true, response.body['zone_id'].toString());
+    }else{
+      _inZoned = false;
+      responseModel = ResponseModel(false, response.statusText!);
+    }
+    if(markerLoad){
+      _loading = false;
+    }else{
+      _isLoading = false;
+    }
+    update();
+    return responseModel;
   }
 }
