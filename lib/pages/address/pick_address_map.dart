@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/data/controller/location_controller.dart';
+import 'package:food_delivery/pages/address/widgets/search_page_dialog.dart';
 import 'package:food_delivery/routes/app_routes.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/custom_buutton.dart';
@@ -65,6 +66,9 @@ class _PickAddressMapState extends State<PickAddressMap> {
                       Get.find<LocationController>()
                           .updatePosition(_cameraPosition, false);
                     },
+                    onMapCreated: (GoogleMapController gMapController){
+                      _googleMapController = gMapController;
+                    },
                   ),
                   Center(
                     child: !locationController.loading
@@ -79,32 +83,38 @@ class _PickAddressMapState extends State<PickAddressMap> {
                       top: Dimension.height40,
                       left: Dimension.width20,
                       right: Dimension.width20,
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: Dimension.width10),
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: AppColors.mainColor,
-                            borderRadius:
-                                BorderRadius.circular(Dimension.radius10)),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.location_on,
-                              size: 26,
-                              color: AppColors.yellowColor,
-                            ),
-                            Expanded(
-                                child: Text(
-                              locationController.pickPlaceMark.name ?? '',
-                              style: TextStyle(
-                                fontSize: Dimension.font20,
-                                color: Colors.white,
+                      child: InkWell(
+                        onTap: ()=> Get.dialog(SearchPageDialog(googleMapController: _googleMapController)),
+
+                        child: Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: Dimension.width10),
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: AppColors.mainColor,
+                              borderRadius:
+                                  BorderRadius.circular(Dimension.radius10)),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.location_on,
+                                size: 26,
+                                color: AppColors.yellowColor,
                               ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ))
-                          ],
+                              Expanded(
+                                  child: Text(
+                                locationController.pickPlaceMark.name ?? '',
+                                style: TextStyle(
+                                  fontSize: Dimension.font20,
+                                  color: Colors.white,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              )),
+                              SizedBox(width: Dimension.width15,),
+                              Icon(Icons.search,size: 25,color: AppColors.yellowColor,)
+                            ],
+                          ),
                         ),
                       )),
                   Positioned(
