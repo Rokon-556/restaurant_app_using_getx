@@ -20,6 +20,7 @@ class AppConstants{
   static const String ZONE_URI='/api/v1/config/get-zone-id';
   static const String SEARCH_LOCATION_URI='/api/v1/config/place-api-autocomplete';
   static const String PLACE_DETAILS_URI='/api/v1/config/place-api-details';
+  static const String PLACE_ORDER_URI='/api/v1/customer/order/place';
 
 
   //storage key
