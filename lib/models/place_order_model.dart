@@ -23,15 +23,15 @@ class PlaceOrderModel {
         required String contactPersonName,
         required String contactPersonNumber,
       }){
-    this._cart = cart;
-    this._orderAmount = orderAmount;
-    this._orderNote = orderNote;
-    this._distance = distance;
-    this._address = address;
-    this._latitude = latitude;
-    this._longitude = longitude;
-    this._contactPersonName = contactPersonName;
-    this._contactPersonNumber = contactPersonNumber;
+    _cart = cart;
+    _orderAmount = orderAmount;
+    _orderNote = orderNote;
+    _distance = distance;
+    _address = address;
+    _latitude = latitude;
+    _longitude = longitude;
+    _contactPersonName = contactPersonName;
+    _contactPersonNumber = contactPersonNumber;
   }
 
   List<CartModel> get cart => _cart!;
@@ -72,17 +72,17 @@ class PlaceOrderModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
 
-    if (this._cart != null) {
-      data['cart'] = this._cart!.map((v) => v.toJson()).toList();
+    if (_cart != null) {
+      data['cart'] = _cart!.map((v) => v.toJson()).toList();
     }
-    data['order_amount'] = this._orderAmount;
-    data['order_note'] = this._orderNote;
-    data['distance'] = this._distance;
-    data['address'] = this._address;
-    data['latitude'] = this._latitude;
-    data['longitude'] = this._longitude;
-    data['contact_person_name'] = this._contactPersonName;
-    data['contact_person_number'] = this._contactPersonNumber;
+    data['order_amount'] = _orderAmount;
+    data['order_note'] = _orderNote;
+    data['distance'] = _distance;
+    data['address'] = _address;
+    data['latitude'] = _latitude;
+    data['longitude'] = _longitude;
+    data['contact_person_name'] = _contactPersonName;
+    data['contact_person_number'] = _contactPersonNumber;
     return data;
   }
 

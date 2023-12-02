@@ -19,5 +19,5 @@ class AppRoutes{
   static String getAddressPage()=>'$ADD_ADDRESS';
   static String getAddressMapPage()=>'$ADD_ADDRESS_MAP';
   static String getPaymentPage(String id,int userId)=>'$PAYMENT_PAGE?id=$id&userID=$userId';
-  static String getOrderSuccessPage()=>'$ORDER_SUCCESS';
+  static String getOrderSuccessPage(String orderId,String orderStatus)=>'$ORDER_SUCCESS?id=$orderId&status=$orderStatus';
 }

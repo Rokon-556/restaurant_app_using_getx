@@ -11,6 +11,7 @@ import 'package:food_delivery/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 import '../pages/address/pick_address_map.dart';
+import '../pages/payment/order_success_page.dart';
 
 class AppPages {
   static var pageList = [
@@ -82,5 +83,12 @@ class AppPages {
         ),
       ),
     ),
+    GetPage(
+      name: AppRoutes.ORDER_SUCCESS,
+      page: () => OrderSuccessPage(
+          orderId: Get.parameters['id']!,
+          orderStatus:
+              Get.parameters['status'].toString().contains('success') ? 1 : 0),
+    )
   ];
 }

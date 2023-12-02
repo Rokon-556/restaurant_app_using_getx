@@ -264,7 +264,7 @@ class CartPage extends StatelessWidget {
                             orderAmount: 100.0,
                             distance: 10.0,
                             scheduleAt: '',
-                            orderNote: '',
+                            orderNote: 'Not abbout the food',
                             address: location.address,
                             latitude: location.latitude,
                             longitude: location.longitude,

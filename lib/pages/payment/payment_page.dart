@@ -108,9 +108,9 @@ class _PaymentPageState extends State<PaymentPage> {
         _canRedirect = false;
       }
       if (_isSuccess) {
-        // Get.offNamed(AppRoutes.getOrderSuccessRoute(widget.orderModel.id.toString(), 'success'));
+        Get.offNamed(AppRoutes.getOrderSuccessPage(widget.orderModel.id.toString(), 'success'));
       } else if (_isFailed || _isCancel) {
-        // Get.offNamed(AppRoutes.getOrderSuccessRoute(widget.orderModel.id.toString(), 'fail'));
+        Get.offNamed(AppRoutes.getOrderSuccessPage(widget.orderModel.id.toString(), 'fail'));
       }else{
         print("Encountered problem");
       }
