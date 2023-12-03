@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery/data/controller/auth_controller.dart';
 import 'package:food_delivery/data/controller/cart_controller.dart';
@@ -270,6 +272,7 @@ class CartPage extends StatelessWidget {
                             longitude: location.longitude,
                             contactPersonName: user?.name ?? '',
                             contactPersonNumber: user?.phone ?? '');
+                        log(placeOrder.cart.toString());
                         Get.find<OrderController>().placeOrder(placeOrder, _callBackFunc);
                       }
                     } else {
@@ -296,6 +299,10 @@ class CartPage extends StatelessWidget {
 
   void _callBackFunc(bool isSuccess, String message, String orderID) {
     if (isSuccess) {
+      Get.find<CartController>().clearCart();
+      Get.find<CartController>().clearSharedPreferencesData();
+      Get.find<CartController>().addToHistory();
+
       Get.offNamed(AppRoutes.getPaymentPage(
           orderID, Get.find<UserController>().userModel!.id));
     } else {

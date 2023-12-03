@@ -141,4 +141,8 @@ class CartController extends GetxController {
     cartRepo.addToCartItems(getCartItems);
     update();
   }
+
+  void clearSharedPreferencesData(){
+    cartRepo.removeSharedPreferencesData();
+  }
 }

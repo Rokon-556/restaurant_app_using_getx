@@ -51,15 +51,11 @@ class CartRepository{
       cartHistoryItem = preferences.getStringList(AppConstants.CART_HISTORY_ITEM)!;
     }
     for(int i= 0;i<cartItem.length;i++){
-      log('cart history:${cartItem[i]}');
       cartHistoryItem.add(cartItem[i]);
     }
-    removeCart();
+    cartItem=[];
+    // removeCart();
     preferences.setStringList(AppConstants.CART_HISTORY_ITEM, cartHistoryItem);
-    log('history length:${getCartHistoryList().length}');
-    for(int j= 0;j<getCartHistoryList().length;j++){
-      log('Order Time is : ${getCartHistoryList()[j].time.toString()}');
-    }
   }
 
   void removeCart(){
@@ -82,6 +78,12 @@ class CartRepository{
     cartHistoryItem.forEach((element) =>cartListHistory.add(CartModel.fromJson(jsonDecode(element))));
 
     return cartListHistory;
+
+  }
+
+  void removeSharedPreferencesData(){
+    preferences.remove(AppConstants.CART_ITEM);
+    preferences.remove(AppConstants.CART_HISTORY_ITEM);
 
   }
 }

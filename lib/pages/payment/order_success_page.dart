@@ -20,11 +20,12 @@ class OrderSuccessPage extends StatelessWidget {
         child: SizedBox(
           width: Dimension.deviceWidth,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
                 orderStatus == 1
-                    ? 'assets/images/checked.png'
-                    : 'assets/images/warning.png',
+                    ? 'assets/image/checked.png'
+                    : 'assets/image/warning.png',
                 width: 100,
                 height: 100,
               ),
@@ -35,7 +36,7 @@ class OrderSuccessPage extends StatelessWidget {
                 orderStatus == 1
                     ? 'You placed the order successfully '
                     : 'Your order failed',
-                style: TextStyle(fontSize: Dimension.font20 + 6),
+                style: TextStyle(fontSize: Dimension.font20),
               ),
               SizedBox(
                 height: Dimension.height20,
@@ -52,7 +53,7 @@ class OrderSuccessPage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: Dimension.height30,
+                height: Dimension.height15,
               ),
               Padding(
                 padding: EdgeInsets.all(Dimension.height20),
