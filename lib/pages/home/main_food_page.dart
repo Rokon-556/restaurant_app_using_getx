@@ -26,49 +26,50 @@ class _MainFoodPageState extends State<MainFoodPage> {
   Widget build(BuildContext context) {
     return RefreshIndicator(child: Column(
       children: [
-        Container(
-          child: Container(
-            margin: const EdgeInsets.only(top: 60, bottom: 15),
-            padding:  EdgeInsets.only(right: Dimension.width20, left: Dimension.width20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    BigText(
-                      text: 'Bangladesh',
-                      color: AppColors.mainColor,
-                    ),
-                    Row(
-                      children: [
-                        SmallText(
-                          text: 'Narsingdi',
-                          color: Colors.black54,
-                        ),
-                        const SizedBox(width: 5,),
-                        const Icon(Icons.arrow_drop_down)
-                      ],
-                    )
-                  ],
-                ),
-                Center(
-                  child: Container(
-                    height: Dimension.height40,
-                    width: Dimension.height40,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(Dimension.radius15),
-                        color: AppColors.mainColor),
-                    child: Icon(
-                      Icons.search,
-                      size: Dimension.icon24,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        SizedBox(height: 50,),
+        // Container(
+        //   child: Container(
+        //     margin: const EdgeInsets.only(top: 60, bottom: 15),
+        //     padding:  EdgeInsets.only(right: Dimension.width20, left: Dimension.width20),
+        //     child: Row(
+        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //       children: [
+        //         Column(
+        //           children: [
+        //             BigText(
+        //               text: 'Bangladesh',
+        //               color: AppColors.mainColor,
+        //             ),
+        //             Row(
+        //               children: [
+        //                 SmallText(
+        //                   text: 'Narsingdi',
+        //                   color: Colors.black54,
+        //                 ),
+        //                 const SizedBox(width: 5,),
+        //                 const Icon(Icons.arrow_drop_down)
+        //               ],
+        //             )
+        //           ],
+        //         ),
+        //         Center(
+        //           child: Container(
+        //             height: Dimension.height40,
+        //             width: Dimension.height40,
+        //             decoration: BoxDecoration(
+        //                 borderRadius: BorderRadius.circular(Dimension.radius15),
+        //                 color: AppColors.mainColor),
+        //             child: Icon(
+        //               Icons.search,
+        //               size: Dimension.icon24,
+        //               color: Colors.white,
+        //             ),
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
         const Expanded(child: FoodPageBody()),
       ],
     ), onRefresh: loadDependencies);

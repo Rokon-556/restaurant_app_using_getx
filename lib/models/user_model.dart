@@ -17,7 +17,7 @@ class UserModel {
         name: json['f_name'],
         email: json['email'],
         id: json['id'],
-        orderCount: json['order_count'],
+        orderCount: int.tryParse(json['order_count'].toString())!,
         phone: json['phone']);
   }
 }

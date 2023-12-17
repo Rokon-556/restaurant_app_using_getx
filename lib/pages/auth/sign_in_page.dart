@@ -22,6 +22,7 @@ class SignInPage extends StatelessWidget {
     final emailController = TextEditingController();
     final passController = TextEditingController();
     void login(AuthController authController) {
+      log(emailController.toString());
       // final authController = Get.find<AuthController>();
 
       String email = emailController.text.trim();

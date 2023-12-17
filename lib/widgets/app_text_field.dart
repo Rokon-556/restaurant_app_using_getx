@@ -29,6 +29,9 @@ class AppTextField extends StatelessWidget {
       child: TextField(
         obscureText: isObscured ? true : false,
         controller: editingController,
+        onChanged: (val){
+          print(val);
+        },
         decoration: InputDecoration(
             hintText: hintText,
             prefixIcon: Icon(icon,color: AppColors.yellowColor,),

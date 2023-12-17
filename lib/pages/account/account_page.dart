@@ -22,7 +22,8 @@ class AccountPage extends StatelessWidget {
     bool _isLoggedIn = Get.find<AuthController>().userLoggedIn();
     if (_isLoggedIn) {
       Get.find<UserController>().getUserData();
-      Get.find<LocationController>().getUserAddress();
+      // Get.find<LocationController>().getAllAddressList();
+      // Get.find<LocationController>().getUserAddress();
     }
     return Scaffold(
       appBar: AppBar(
@@ -94,57 +95,59 @@ class AccountPage extends StatelessWidget {
                                 bigText: BigText(
                                     text: userController.userModel?.email??''),
                               ),
-                              SizedBox(
-                                height: Dimension.height20,
-                              ),
-                              AccountWidget(
-                                appIcon: AppIcon(
-                                  icon: Icons.message_outlined,
-                                  iconSize: Dimension.height20,
-                                  size: Dimension.height40,
-                                  bgColor: Colors.redAccent,
-                                  iconColor: Colors.white,
-                                ),
-                                bigText: BigText(text: 'Message'),
-                              ),
-                              SizedBox(
-                                height: Dimension.height20,
-                              ),
-                            GetBuilder<LocationController>(builder: (locController){
-                              if(_isLoggedIn && locController.addressList.isEmpty){
-                                return InkWell(
-                                  onTap: (){
-                                    Get.offNamed(AppRoutes.getAddressPage());
-                                  },
-                                  child: AccountWidget(
-                                    appIcon: AppIcon(
-                                      icon: Icons.location_on_outlined,
-                                      iconSize: Dimension.height20,
-                                      size: Dimension.height40,
-                                      bgColor: AppColors.yellowColor,
-                                      iconColor: Colors.white,
-                                    ),
-                                    bigText: BigText(text: 'Fill Your Address'),
-                                  ),
-                                );
-                              }else{
-                                return InkWell(
-                                  onTap: (){
-                                    Get.offNamed(AppRoutes.getAddressPage());
-                                  },
-                                  child: AccountWidget(
-                                    appIcon: AppIcon(
-                                      icon: Icons.location_on_outlined,
-                                      iconSize: Dimension.height20,
-                                      size: Dimension.height40,
-                                      bgColor: AppColors.yellowColor,
-                                      iconColor: Colors.white,
-                                    ),
-                                    bigText: BigText(text: 'Your Address'),
-                                  ),
-                                );
-                              }
-                            }),
+                              // SizedBox(
+                              //   height: Dimension.height20,
+                              // ),
+                            //   AccountWidget(
+                            //     appIcon: AppIcon(
+                            //       icon: Icons.message_outlined,
+                            //       iconSize: Dimension.height20,
+                            //       size: Dimension.height40,
+                            //       bgColor: Colors.redAccent,
+                            //       iconColor: Colors.white,
+                            //     ),
+                            //     bigText: BigText(text: 'Message'),
+                            //   ),
+                            //   SizedBox(
+                            //     height: Dimension.height20,
+                            //   ),
+                            // GetBuilder<LocationController>(builder: (locController){
+                            //   if(_isLoggedIn && locController.addressList.isEmpty){
+                            //     return InkWell(
+                            //       onTap: (){
+                            //         Get.toNamed(AppRoutes.getAddressPage());
+                            //         // Get.offNamed(AppRoutes.getAddressPage());
+                            //       },
+                            //       child: AccountWidget(
+                            //         appIcon: AppIcon(
+                            //           icon: Icons.location_on_outlined,
+                            //           iconSize: Dimension.height20,
+                            //           size: Dimension.height40,
+                            //           bgColor: AppColors.yellowColor,
+                            //           iconColor: Colors.white,
+                            //         ),
+                            //         bigText: BigText(text: 'Fill Your Address'),
+                            //       ),
+                            //     );
+                            //   }else{
+                            //     return InkWell(
+                            //       onTap: (){
+                            //         Get.toNamed(AppRoutes.getAddressPage());
+                            //         // Get.offNamed(AppRoutes.getAddressPage());
+                            //       },
+                            //       child: AccountWidget(
+                            //         appIcon: AppIcon(
+                            //           icon: Icons.location_on_outlined,
+                            //           iconSize: Dimension.height20,
+                            //           size: Dimension.height40,
+                            //           bgColor: AppColors.yellowColor,
+                            //           iconColor: Colors.white,
+                            //         ),
+                            //         bigText: BigText(text: 'Your Address'),
+                            //       ),
+                            //     );
+                            //   }
+                            // }),
                               SizedBox(
                                 height: Dimension.height20,
                               ),

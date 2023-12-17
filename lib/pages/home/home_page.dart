@@ -5,6 +5,7 @@ import 'package:food_delivery/pages/auth/sign_in_page.dart';
 import 'package:food_delivery/pages/auth/sign_up_page.dart';
 import 'package:food_delivery/pages/cart/cart_history.dart';
 import 'package:food_delivery/pages/home/main_food_page.dart';
+import 'package:food_delivery/pages/order/order_page.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -34,9 +35,10 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _buildScreens() {
     return [
       const MainFoodPage(),
-      const Center(
-        child: Text('Next Page'),
-      ),
+      const OrderPage(),
+      // const Center(
+      //   child: Text('Next Page'),
+      // ),
       // const SignInPage(),
       // const SignUpPage(),
       const CartHistoryPage(),

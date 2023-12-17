@@ -45,6 +45,7 @@ class ProductModel {
   int? id;
   String? name;
   String? description;
+  // String? price;
   int? price;
   int? stars;
   String? img;
@@ -70,8 +71,8 @@ class ProductModel {
         id: json["id"],
         name: json["name"],
         description: json["description"],
-        price: json["price"],
-        stars: json["stars"],
+        price: int.tryParse(json["price"].toString()),
+        stars: int.tryParse(json["stars"].toString()),
         img: json["img"],
         location: json["location"],
         createdAt: json["created_at"] == null
@@ -80,7 +81,7 @@ class ProductModel {
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
-        typeId: json["type_id"],
+        typeId: int.tryParse(json["type_id"].toString()),
       );
 
   Map<String, dynamic> toJson() => {
