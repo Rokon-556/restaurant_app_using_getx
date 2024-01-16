@@ -6,8 +6,8 @@ class PlaceOrderModel {
   late String _orderNote;
   late double _distance;
   late String _address;
-  late String _latitude;
-  late String _longitude;
+  // late String _latitude;
+  // late String _longitude;
   late  String _contactPersonName;
   late String _contactPersonNumber;
 
@@ -18,8 +18,8 @@ class PlaceOrderModel {
         required String scheduleAt,
         required String orderNote,
         required String address,
-        required String latitude,
-        required String longitude,
+        // required String latitude,
+        // required String longitude,
         required String contactPersonName,
         required String contactPersonNumber,
       }){
@@ -28,8 +28,8 @@ class PlaceOrderModel {
     _orderNote = orderNote;
     _distance = distance;
     _address = address;
-    _latitude = latitude;
-    _longitude = longitude;
+    // _latitude = latitude;
+    // _longitude = longitude;
     _contactPersonName = contactPersonName;
     _contactPersonNumber = contactPersonNumber;
   }
@@ -43,8 +43,8 @@ class PlaceOrderModel {
   double get distance => _distance;
 
   String get address => _address;
-  String get latitude => _latitude;
-  String get longitude => _longitude;
+  // String get latitude => _latitude;
+  // String get longitude => _longitude;
   String get contactPersonName => _contactPersonName;
   String get contactPersonNumber => _contactPersonNumber;
 
@@ -63,14 +63,14 @@ class PlaceOrderModel {
     _distance = json['distance'];
 
     _address = json['address'];
-    _latitude = json['latitude'];
-    _longitude = json['longitude'];
+    // _latitude = json['latitude'];
+    // _longitude = json['longitude'];
     _contactPersonName = json['contact_person_name'];
     _contactPersonNumber = json['contact_person_number'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
 
     if (_cart != null) {
       data['cart'] = _cart!.map((v) => v.toJson()).toList();
@@ -79,8 +79,8 @@ class PlaceOrderModel {
     data['order_note'] = _orderNote;
     data['distance'] = _distance;
     data['address'] = _address;
-    data['latitude'] = _latitude;
-    data['longitude'] = _longitude;
+    // data['latitude'] = _latitude;
+    // data['longitude'] = _longitude;
     data['contact_person_name'] = _contactPersonName;
     data['contact_person_number'] = _contactPersonNumber;
     return data;

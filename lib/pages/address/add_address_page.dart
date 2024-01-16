@@ -85,10 +85,10 @@ class _AddAddressPageState extends State<AddAddressPage> {
           }
         }
         return GetBuilder<LocationController>(builder: (locController) {
-          _addressController.text = locController.addressList.first.address;
-          _addressController.text = '${locController.placeMark.name ?? ''},'
-              '${locController.placeMark.locality ?? ''},${locController.placeMark.postalCode ?? ''}'
-              '${locController.placeMark.country ?? ''}';
+          // _addressController.text = locController.addressList.first.address;
+          // _addressController.text = '${locController.placeMark.name ?? ''},'
+          //     '${locController.placeMark.locality ?? ''},${locController.placeMark.postalCode ?? ''}'
+          //     '${locController.placeMark.country ?? ''}';
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -235,6 +235,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
               )),
           child: InkWell(
             onTap: () {
+              log('save address tapped');
               AddressModel _addressModel = AddressModel(
                   addressType: locController
                       .addressTypeList[locController.addressTypeIndex],
