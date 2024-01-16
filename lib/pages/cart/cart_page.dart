@@ -268,8 +268,8 @@ class CartPage extends StatelessWidget {
                             scheduleAt: '',
                             orderNote: 'Not abbout the food',
                             address: location.address,
-                            // latitude: location.latitude,
-                            // longitude: location.longitude,
+                            latitude: location.latitude,
+                            longitude: location.longitude,
                             contactPersonName: user?.name ?? '',
                             contactPersonNumber: user?.phone ?? '');
                         log(placeOrder.cart.toString());

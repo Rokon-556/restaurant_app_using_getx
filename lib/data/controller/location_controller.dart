@@ -55,90 +55,102 @@ class LocationController extends GetxController implements GetxService {
     _mapController = mapController;
   }
 
-  // Future<String> getAddressFromLatLng(LatLng latlng) async {
-  //   String _address = 'Unknown Address Found';
-  //   Response response = await locationRepo.getAddressFromLatLng(latlng);
-  //   log("${response.body}");
-  //   if (response.body["status"] == "OK") {
-  //     log(response.body["status"].toString());
-  //     _address = response.body["results"][0]["formatted_address"].toString();
-  //     log('picked address' + _address);
-  //   } else {
-  //     log('Error loading google map api');
-  //   }
-  //   update();
-  //   return _address;
-  // }
+  Future<String> getAddressFromLatLng(LatLng latlng) async {
+    String _address = 'Unknown Address Found';
+    Response response = await locationRepo.getAddressFromLatLng(latlng);
+    log("${response.body}");
+    if (response.body["status"] == "OK") {
+      log(response.body["status"].toString());
+      _address = response.body["results"][0]["formatted_address"].toString();
+      log('picked address' + _address);
+    } else {
+      log('Error loading google map api');
+    }
+    update();
+    return _address;
+  }
 
-  // void updatePosition(CameraPosition cameraPosition, bool isFromAddress) async {
-  //   if (_updateAddressData) {
-  //     _loading = true;
-  //     update();
-  //     try {
-  //       if (isFromAddress) {
-  //         _position = Position(
-  //             longitude: cameraPosition.target.longitude,
-  //             latitude: cameraPosition.target.latitude,
-  //             timestamp: DateTime.now(),
-  //             accuracy: 1,
-  //             altitude: 1,
-  //             altitudeAccuracy: 1,
-  //             heading: 1,
-  //             headingAccuracy: 1,
-  //             speed: 1,
-  //             speedAccuracy: 1);
-  //       } else {
-  //         _pickPosition = Position(
-  //             longitude: cameraPosition.target.longitude,
-  //             latitude: cameraPosition.target.latitude,
-  //             timestamp: DateTime.now(),
-  //             accuracy: 1,
-  //             altitude: 1,
-  //             altitudeAccuracy: 1,
-  //             heading: 1,
-  //             headingAccuracy: 1,
-  //             speed: 1,
-  //             speedAccuracy: 1);
-  //       }
-  //       ResponseModel responseModel = await getZone(
-  //           cameraPosition.target.latitude.toString(),
-  //           cameraPosition.target.latitude.toString(),
-  //           false);
-  //       _buttonDisabled =
-  //           !responseModel.isSuccess; //button value false mean in service area
-  //       if (_changeAddressData) {
-  //         String address = await getAddressFromLatLng(LatLng(
-  //             cameraPosition.target.latitude, cameraPosition.target.longitude));
-  //         isFromAddress
-  //             ? _placeMark = Placemark(name: address)
-  //             : _pickPlaceMark = Placemark(name: address);
-  //       }else{
-  //         _changeAddressData = true;
-  //       }
-  //     } catch (e) {
-  //       log(e.toString());
-  //     }
-  //     _loading = false;
-  //     update();
-  //   } else {
-  //     _updateAddressData = true;
-  //   }
-  // }
+  void updatePosition(CameraPosition cameraPosition, bool isFromAddress) async {
+    if (_updateAddressData) {
+      _loading = true;
+      update();
+      try {
+        if (isFromAddress) {
+          _position = Position(
+              longitude: cameraPosition.target.longitude,
+              latitude: cameraPosition.target.latitude,
+              timestamp: DateTime.now(),
+              accuracy: 1,
+              altitude: 1,
+              altitudeAccuracy: 1,
+              heading: 1,
+              headingAccuracy: 1,
+              speed: 1,
+              speedAccuracy: 1);
+        } else {
+          _pickPosition = Position(
+              longitude: cameraPosition.target.longitude,
+              latitude: cameraPosition.target.latitude,
+              timestamp: DateTime.now(),
+              accuracy: 1,
+              altitude: 1,
+              altitudeAccuracy: 1,
+              heading: 1,
+              headingAccuracy: 1,
+              speed: 1,
+              speedAccuracy: 1);
+        }
+        ResponseModel responseModel = await getZone(
+            cameraPosition.target.latitude.toString(),
+            cameraPosition.target.latitude.toString(),
+            false);
+        _buttonDisabled =
+            !responseModel.isSuccess; //button value false mean in service area
+        if (_changeAddressData) {
+          String address = await getAddressFromLatLng(LatLng(
+              cameraPosition.target.latitude, cameraPosition.target.longitude));
+          isFromAddress
+              ? _placeMark = Placemark(name: address)
+              : _pickPlaceMark = Placemark(name: address);
+        } else {
+          _changeAddressData = true;
+        }
+      } catch (e) {
+        log(e.toString());
+      }
+      _loading = false;
+      update();
+    } else {
+      _updateAddressData = true;
+    }
+  }
 
   AddressModel getUserAddress() {
-    late AddressModel _addressModel;
-    log('All Adress :');
+    AddressModel? _addressModel;
     _getAddress = jsonDecode(locationRepo.getUserAddress());
-    log('All Adress1 :$_getAddress');
     try {
       _addressModel =
           AddressModel.fromJson(jsonDecode(locationRepo.getUserAddress()));
-      log('Address Model :$_addressModel');
     } catch (e) {
       log(e.toString());
     }
-    return _addressModel;
+    return _addressModel!;
   }
+
+  // AddressModel getUserAddress() {
+  //   late AddressModel _addressModel;
+  //   log('All Adress :');
+  //   _getAddress = jsonDecode(locationRepo.getUserAddress());
+  //   log('All Adress1 :$_getAddress');
+  //   try {
+  //     _addressModel =
+  //         AddressModel.fromJson(jsonDecode(locationRepo.getUserAddress()));
+  //     log('Address Model :$_addressModel');
+  //   } catch (e) {
+  //     log(e.toString());
+  //   }
+  //   return _addressModel;
+  // }
 
   setAddressTypeIndex(int index) {
     _addressTypeIndex = index;
@@ -262,7 +274,8 @@ class LocationController extends GetxController implements GetxService {
             target: LatLng(
               details.result.geometry!.location.lat,
               details.result.geometry!.location.lng,
-            ),zoom: 15,
+            ),
+            zoom: 15,
           ),
         ),
       );

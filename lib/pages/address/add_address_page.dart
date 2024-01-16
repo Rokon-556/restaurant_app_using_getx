@@ -28,9 +28,9 @@ class _AddAddressPageState extends State<AddAddressPage> {
   final _contactPersonName = TextEditingController();
   final _contactPersonNumber = TextEditingController();
 
-  // CameraPosition _cameraPosition =
-  //     const CameraPosition(target: LatLng(50.930557, -102.807777), zoom: 15);
-  // late LatLng _initialPosition = LatLng(50.930557, -102.807777);
+  CameraPosition _cameraPosition =
+      const CameraPosition(target: LatLng(50.930557, -102.807777), zoom: 15);
+  late LatLng _initialPosition = LatLng(50.930557, -102.807777);
   // late LatLng _initialPosition;
   late bool _isLogged;
 
@@ -46,11 +46,11 @@ class _AddAddressPageState extends State<AddAddressPage> {
       /*
       bug fix for old user from new device
        */
-      // if (Get.find<LocationController>().getUserAddressFromLocalStorage() ==
-      //     '') {
-      //   Get.find<LocationController>()
-      //       .saveUserAddress(Get.find<LocationController>().addressList.last);
-      // }
+      if (Get.find<LocationController>().getUserAddressFromLocalStorage() ==
+          '') {
+        Get.find<LocationController>()
+            .saveUserAddress(Get.find<LocationController>().addressList.last);
+      }
       Get.find<LocationController>().getAllAddressList();
       // _cameraPosition = CameraPosition(
       //     target: LatLng(
@@ -85,52 +85,52 @@ class _AddAddressPageState extends State<AddAddressPage> {
           }
         }
         return GetBuilder<LocationController>(builder: (locController) {
-          // _addressController.text = locController.addressList.first.address;
-          // _addressController.text = '${locController.placeMark.name ?? ''},'
-          //     '${locController.placeMark.locality ?? ''},${locController.placeMark.postalCode ?? ''}'
-          //     '${locController.placeMark.country ?? ''}';
+          _addressController.text = locController.addressList.first.address;
+          _addressController.text = '${locController.placeMark.name ?? ''},'
+              '${locController.placeMark.locality ?? ''},${locController.placeMark.postalCode ?? ''}'
+              '${locController.placeMark.country ?? ''}';
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Container(
-                //   height: 150,
-                //   width: MediaQuery.of(context).size.width,
-                //   margin: EdgeInsets.only(left: 5, top: 5, right: 5),
-                //   decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.all(Radius.circular(5)),
-                //       border: Border.all(
-                //         color: AppColors.mainColor,
-                //         width: 2,
-                //       )),
-                //   child: GoogleMap(
-                //     onTap: (latlng) {
-                //       Get.toNamed(
-                //         AppRoutes.getAddressMapPage(),
-                //         arguments: PickAddressMap(
-                //           fromSignUp: false,
-                //           fromAddress: false,
-                //           googleMapController:
-                //               locController.googleMapController,
-                //         ),
-                //       );
-                //     },
-                //     initialCameraPosition:
-                //         CameraPosition(target: _initialPosition, zoom: 15),
-                //     compassEnabled: false,
-                //     mapToolbarEnabled: false,
-                //     indoorViewEnabled: true,
-                //     zoomControlsEnabled: false,
-                //     myLocationEnabled: true,
-                //     onCameraMove: (position) => _cameraPosition = position,
-                //     onCameraIdle: () {
-                //       locController.updatePosition(_cameraPosition, true);
-                //     },
-                //     onMapCreated: (GoogleMapController gMapController) {
-                //       locController.setLocation(gMapController);
-                //     },
-                //   ),
-                // ),
+                Container(
+                  height: 150,
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.only(left: 5, top: 5, right: 5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      border: Border.all(
+                        color: AppColors.mainColor,
+                        width: 2,
+                      )),
+                  child: GoogleMap(
+                    onTap: (latlng) {
+                      Get.toNamed(
+                        AppRoutes.getAddressMapPage(),
+                        arguments: PickAddressMap(
+                          fromSignUp: false,
+                          fromAddress: false,
+                          googleMapController:
+                              locController.googleMapController,
+                        ),
+                      );
+                    },
+                    initialCameraPosition:
+                        CameraPosition(target: _initialPosition, zoom: 15),
+                    compassEnabled: false,
+                    mapToolbarEnabled: false,
+                    indoorViewEnabled: true,
+                    zoomControlsEnabled: false,
+                    myLocationEnabled: true,
+                    onCameraMove: (position) => _cameraPosition = position,
+                    onCameraIdle: () {
+                      locController.updatePosition(_cameraPosition, true);
+                    },
+                    onMapCreated: (GoogleMapController gMapController) {
+                      locController.setLocation(gMapController);
+                    },
+                  ),
+                ),
                 Padding(
                   padding: EdgeInsets.only(left: 20, top: 20),
                   child: SizedBox(

@@ -55,21 +55,21 @@ class _PickAddressMapState extends State<PickAddressMap> {
               width: double.maxFinite,
               child: Stack(
                 children: [
-                  // GoogleMap(
-                  //   initialCameraPosition:
-                  //       CameraPosition(target: _initialPosition, zoom: 15),
-                  //   zoomControlsEnabled: false,
-                  //   onCameraMove: (CameraPosition camPosition) {
-                  //     _cameraPosition = camPosition;
-                  //   },
-                  //   onCameraIdle: () {
-                  //     Get.find<LocationController>()
-                  //         .updatePosition(_cameraPosition, false);
-                  //   },
-                  //   onMapCreated: (GoogleMapController gMapController){
-                  //     _googleMapController = gMapController;
-                  //   },
-                  // ),
+                  GoogleMap(
+                    initialCameraPosition:
+                        CameraPosition(target: _initialPosition, zoom: 15),
+                    zoomControlsEnabled: false,
+                    onCameraMove: (CameraPosition camPosition) {
+                      _cameraPosition = camPosition;
+                    },
+                    onCameraIdle: () {
+                      Get.find<LocationController>()
+                          .updatePosition(_cameraPosition, false);
+                    },
+                    onMapCreated: (GoogleMapController gMapController){
+                      _googleMapController = gMapController;
+                    },
+                  ),
                   Center(
                     child: !locationController.loading
                         ? Image.asset(

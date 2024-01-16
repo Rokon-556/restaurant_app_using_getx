@@ -13,15 +13,25 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
-  late TabController _tabController;
+  late TabController _tabController ;
   late bool _isLoggedIn;
+
+  // void initializeTabController(){
+  //   _isLoggedIn = Get.find<AuthController>().userLoggedIn();
+  //   if (_isLoggedIn) {
+  //     _tabController = TabController(length: 2, vsync: this);
+  //     Get.find<OrderController>().getOrderList();
+  //   }
+  // }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    // initializeTabController();
     _isLoggedIn = Get.find<AuthController>().userLoggedIn();
     if (_isLoggedIn) {
+      Get.find<OrderController>().getOrderList();
       _tabController = TabController(length: 2, vsync: this);
       Get.find<OrderController>().getOrderList();
     }
@@ -29,6 +39,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.mainColor,
