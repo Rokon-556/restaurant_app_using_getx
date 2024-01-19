@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:food_delivery/base/custom_app_bar.dart';
 import 'package:food_delivery/data/controller/auth_controller.dart';
 import 'package:food_delivery/data/controller/cart_controller.dart';
 import 'package:food_delivery/data/controller/location_controller.dart';
@@ -26,14 +27,15 @@ class AccountPage extends StatelessWidget {
       // Get.find<LocationController>().getUserAddress();
     }
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.mainColor,
-        title: BigText(
-          text: 'Profile',
-          textSize: 24,
-          color: Colors.white,
-        ),
-      ),
+      appBar: CustomAppBar(title: 'Profile',),
+      // appBar: AppBar(
+      //   backgroundColor: AppColors.mainColor,
+      //   title: BigText(
+      //     text: 'Profile',
+      //     textSize: 24,
+      //     color: Colors.white,
+      //   ),
+      // ),
       body: GetBuilder<UserController>(builder: (userController) {
         return _isLoggedIn
             ? (userController.isLoading

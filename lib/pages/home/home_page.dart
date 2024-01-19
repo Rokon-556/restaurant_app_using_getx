@@ -38,13 +38,13 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _buildScreens() {
     return [
       const MainFoodPage(),
-      Get.find<AuthController>().userLoggedIn() ?const OrderPage() : SignInPage(),
+      Get.find<AuthController>().userLoggedIn() ? const OrderPage() : SignInPage(),
       // const Center(
       //   child: Text('Next Page'),
       // ),
       // const SignInPage(),
       // const SignUpPage(),
-       const CartHistoryPage(),
+      const CartHistoryPage(),
       const AccountPage()
     ];
   }
