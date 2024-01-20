@@ -8,7 +8,8 @@ class AppTextField extends StatelessWidget {
   final String hintText;
   final IconData icon;
   bool isObscured;
-  AppTextField({super.key, required this.editingController, required this.hintText, required this.icon,this.isObscured = false});
+  bool isMaxLine;
+  AppTextField({super.key, required this.editingController, required this.hintText, required this.icon,this.isObscured = false,this.isMaxLine = false});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class AppTextField extends StatelessWidget {
           ]
       ),
       child: TextField(
+        maxLines: isMaxLine?3:1,
         obscureText: isObscured ? true : false,
         controller: editingController,
         onChanged: (val){

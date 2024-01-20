@@ -145,6 +145,7 @@ class PopularFoodDetail extends StatelessWidget {
         bottomNavigationBar: GetBuilder<PopularProductListController>(
           builder: (popularProduct) {
             return BottomSection(
+              isCartPage: false,
               widget: Row(
                 children: [
                   InkWell(

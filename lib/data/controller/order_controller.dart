@@ -15,6 +15,13 @@ class OrderController extends GetxController implements GetxService {
   List<OrderModel> get currentOrderList => _currentOrderList;
   List<OrderModel> get historyOrderList => _historyOrderList;
 
+  int _paymentIndex = 0;
+  int get paymentIndex=>_paymentIndex;
+  String _deliveryOption = 'delivery';
+  String get deliveryOption=>_deliveryOption;
+  String _foodNote = '';
+  String get foodNote =>_foodNote;
+
   Future<void> placeOrder(
       PlaceOrderModel placeOrderModel, Function callBackFunc) async {
     _isLoading = true;
@@ -53,5 +60,17 @@ class OrderController extends GetxController implements GetxService {
     }
     _isLoading = false;
     update();
+  }
+
+  void setPaymentIndex(int index){
+    _paymentIndex = index;
+    update();
+  }
+  void setDeliveryOption(String option){
+    _deliveryOption = option;
+    update();
+  }
+  void setFoodNote(String note){
+    _foodNote = note;
   }
 }

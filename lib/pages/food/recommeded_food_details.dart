@@ -177,6 +177,7 @@ class RecommendedFoodDetails extends StatelessWidget {
                   ),
                 ),
                 BottomSection(
+                  isCartPage: false,
                   widget: Icon(
                     Icons.favorite,
                     color: AppColors.mainColor,

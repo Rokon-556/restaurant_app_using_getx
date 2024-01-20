@@ -10,6 +10,8 @@ class PlaceOrderModel {
   // late String _longitude;
   late  String _contactPersonName;
   late String _contactPersonNumber;
+  late String _orderType;
+  late String _paymentMethod;
 
   PlaceOrderModel(
       {required List<CartModel> cart,
@@ -22,6 +24,8 @@ class PlaceOrderModel {
         // required String longitude,
         required String contactPersonName,
         required String contactPersonNumber,
+        required String orderType,
+        required String paymentMethod,
       }){
     _cart = cart;
     _orderAmount = orderAmount;
@@ -32,6 +36,8 @@ class PlaceOrderModel {
     // _longitude = longitude;
     _contactPersonName = contactPersonName;
     _contactPersonNumber = contactPersonNumber;
+    _orderType = orderType;
+    _paymentMethod = paymentMethod;
   }
 
   List<CartModel> get cart => _cart!;
@@ -47,6 +53,8 @@ class PlaceOrderModel {
   // String get longitude => _longitude;
   String get contactPersonName => _contactPersonName;
   String get contactPersonNumber => _contactPersonNumber;
+  String get orderType => _orderType;
+  String get paymentMethod => _paymentMethod;
 
   PlaceOrderModel.fromJson(Map<String, dynamic> json) {
     if (json['cart'] != null) {
@@ -67,6 +75,8 @@ class PlaceOrderModel {
     // _longitude = json['longitude'];
     _contactPersonName = json['contact_person_name'];
     _contactPersonNumber = json['contact_person_number'];
+    _orderType = json['order_type'];
+    _paymentMethod = json['payment_method'];
   }
 
   Map<String, dynamic> toJson() {
@@ -83,6 +93,8 @@ class PlaceOrderModel {
     // data['longitude'] = _longitude;
     data['contact_person_name'] = _contactPersonName;
     data['contact_person_number'] = _contactPersonNumber;
+    data['order_type'] = _orderType;
+    data['payment_method'] = paymentMethod;
     return data;
   }
 
